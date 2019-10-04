@@ -1,0 +1,124 @@
+\documentclass[10pt,a4paper,abstraction]{scrreprt}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english,ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{mathptmx} % Hier steckt Times drin
+\usepackage[scaled]{helvet}
+\usepackage{courier}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+	colorlinks,
+	linkcolor={blue!60!white},
+	citecolor={blue!50!black},
+	urlcolor={blue!80!black}
+}
+\usepackage[left=2.00cm, right=2.00cm, top=2.00cm, bottom=2.00cm]{geometry}
+\usepackage[acronym,toc]{glossaries}
+
+\author{Roman Hochhalter}
+\title{Implementierung und Evaluierung einer evolutionären Methode zur Zeichenerkennung auf metallischen Oberflächen}
+
+\newglossary[slg]{symbols}{sym}{sbl}{Symbolverzeichnis}
+
+\makeglossaries
+
+\newglossaryentry{devstandard}{
+	type=symbols,
+	name=$\sigma$,
+	description={Standardabweichung}
+}
+
+\newacronym{de}{DE}{Differentielle Evolution}
+
+\glsadd{devstandard}
+\glsadd{de}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%--Deckblatt--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\begin{titlepage}
+		\begin{figure}[!htb]
+			\begin{minipage}{0.48\textwidth}
+				\includegraphics[width=0.3\linewidth]{Logo_OTH_Regensburg}
+			\end{minipage}
+			\hfill
+			\begin{minipage}{0.48\textwidth}
+				\flushright
+				\includegraphics[width=0.5\linewidth]{evopro_logo_cmyk}
+			\end{minipage}
+		\end{figure}
+		
+		\vspace*{0.5cm}
+		
+		\begin{center}
+			\huge \textbf{\textsf{Implementierung und Evaluierung einer evolutionären Methode zur Zeichenerkennung auf metallischen Oberflächen}} \\
+			\vspace{5cm}
+			\huge\textbf{\textsc{Bachelor-Thesis}} \\
+			\vspace{1cm}
+			\normalsize{vorgelegt am: \today} \\
+			\vspace{2.5cm}
+			%\large \textbf{Fakultät Informatik/Mathematik der Ostbayerischen Technischen Hochschule Regensburg} \\
+			\vspace{3cm}
+			\normalsize{
+				\begin{tabular}{ll}
+					Name: & {Roman Hochhalter} \\
+					Matrikelnummer: & {3071054} \\
+					externer Betreuer: & Filippo Riccio \\
+					betreuender Betrieb: & evopro systems engineering AG \\
+					Studiengang: & Technische Informatik \\
+					Studiengruppe: & IT7 \\
+					Fakultät: & Informatik / Mathematik \\
+					Semester: & Wintersemester 19/20 \\
+					Erstprüfer: & {Prof. Dr. Klaus Volbert} \\
+					Zweitprüfer: & {Prof. Dr. Carsten Kern} \\
+				\end{tabular}
+			}
+		\end{center}
+	\end{titlepage}
+%%%%%%%%%%%%%%%%%%--Erklärung--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\begin{figure}[H]
+		\includegraphics[width=\linewidth]{Bachelorerklaerung}
+	\end{figure}
+%%%%%%%%%%%%%%%%%%--Danksagung--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%--Widmung--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%--Abstract--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\vspace*{4cm}
+	\section*{\centerline{Abstract}}
+	Die Bildverarbeitung übernimmt im zunehmenden Maße Aufgaben, welche gerade bei großen Stückzahlen für den Menschen mit immensem zeitlichen Aufwand verbunden sind. Jene Aufgaben beinhalten in der Regel das Erkennen be\-stimm\-ter Begebenheiten oder Objekte auf Bauteilen in der Industrie. Al\-ler\-dings stellt es bisweilen eine große Herausforderung dar, einer Maschine beizubringen, was ein Mensch permanent bewerkstelligt.\\
+	Daher wird beständig nach Möglichkeiten gesucht, die einzelnen Bearbeitungsschritte in der Bildverarbeitung mit Hinblick auf Zuverlässigkeit und Performance zu verbessern. 
+	\par\smallskip 
+	So soll im Rahmen dieser vorliegenden Arbeit eine Methode aus den Reihen der evolutionären Algorithmen, welche in Kapitel \ref{sec:intro} näher erläutert werden, im Bezug auf die \textit{Segmentierung}\footnote{Ein Arbeitsschritt in der Bildverarbeitung. Dabei werden die Pixel des Bildes in Klassen eingeteilt.} erprobt werden. Als Versuchsobjekte dienen metallische Platten, worauf ein Zeichencode graviert ist, der erkannt werden soll.
+%%%%%%%%%%%%%%%%%%--Inhaltsverzeichnis--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\tableofcontents
+%%%%%%%%%%%%%%%%%%--Kapitel 1: Einführung--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\chapter{Einführung}
+	\label{sec:intro}
+%%%%%%%%%%%%%%%%%%--Kapitel 2: Implementierung des Algorithmus--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\chapter{Implementierung des Algorithmus}
+	\label{sec:imp}
+%%%%%%%%%%%%%%%%%%--Kapitel 3: Experimentelle Ergebnisse--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\chapter{Experimentelle Ergebnisse}
+	\label{sec:ex}
+%%%%%%%%%%%%%%%%%%--Fazit--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\chapter*{Fazit}
+%%%%%%%%%%%%%%%%%%--Symbolverzeichnis--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\printglossaries
+%%%%%%%%%%%%%%%%%%--Tabellenverzeichnis--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%--Abbildungsverzeichnis--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%--Literaturverzeichnis--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%--Widmungen--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+
+\end{document}
