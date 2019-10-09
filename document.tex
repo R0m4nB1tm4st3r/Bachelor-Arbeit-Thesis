@@ -15,7 +15,7 @@
 \usepackage{xcolor}
 \hypersetup{
 	colorlinks,
-	linkcolor={blue!60!white},
+	linkcolor={black},
 	citecolor={blue!50!black},
 	urlcolor={blue!80!black}
 }
@@ -46,6 +46,7 @@
 	\begin{titlepage}
 		\begin{figure}[!htb]
 			\begin{minipage}{0.48\textwidth}
+				
 				\includegraphics[width=0.3\linewidth]{Logo_OTH_Regensburg}
 			\end{minipage}
 			\hfill
@@ -93,10 +94,12 @@
 %%%%%%%%%%%%%%%%%%--Abstract--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\vspace*{4cm}
 	\section*{\centerline{Abstract}}
-	Die Bildverarbeitung übernimmt im zunehmenden Maße Aufgaben, welche gerade bei großen Stückzahlen für den Menschen mit immensem zeitlichen Aufwand verbunden sind. Jene Aufgaben beinhalten in der Regel das Erkennen be\-stimm\-ter Begebenheiten oder Objekte auf Bauteilen in der Industrie. Al\-ler\-dings stellt es bisweilen eine große Herausforderung dar, einer Maschine beizubringen, was ein Mensch permanent bewerkstelligt.\\
+	\par\smallskip
+	\vspace*{1cm}
+	Die Bildverarbeitung übernimmt im zunehmenden Maße Aufgaben, welche gerade bei großen Stückzahlen für den Menschen mit immensem zeitlichen Aufwand verbunden sind. Jene Aufgaben beinhalten in der Regel das Erkennen be\-stimm\-ter Begebenheiten oder Objekte auf Bauteilen in der Industrie. Al\-ler\-dings stellt es bisweilen eine große Herausforderung dar, einer Maschine beizubringen, was ein Mensch permanent bewerkstelligt - das Erkennen von Mustern.\\
 	Daher wird beständig nach Möglichkeiten gesucht, die einzelnen Bearbeitungsschritte in der Bildverarbeitung mit Hinblick auf Zuverlässigkeit und Performance zu verbessern. 
 	\par\smallskip 
-	So soll im Rahmen dieser vorliegenden Arbeit eine Methode aus den Reihen der evolutionären Algorithmen, welche in Kapitel \ref{sec:intro} näher erläutert werden, im Bezug auf die \textit{Segmentierung}\footnote{Ein Arbeitsschritt in der Bildverarbeitung. Dabei werden die Pixel des Bildes in Klassen eingeteilt.} erprobt werden. Als Versuchsobjekte dienen metallische Platten, worauf ein Zeichencode graviert ist, der erkannt werden soll.
+	So soll im Rahmen dieser vorliegenden Arbeit eine Methode aus den Reihen der evolutionären Algorithmen, welche in Kapitel \ref{sec:intro} näher erläutert werden, im Bezug auf die \textit{Segmentierung}\footnote{\textit{Segmentierung}: Ein Arbeitsschritt in der Bildverarbeitung, bei dem die zu lesende Information im Bild vom Hintergrund farblich getrennt wird.} erprobt werden. Als Versuchsobjekte dienen metallische Platten, worauf ein Zeichencode graviert ist, der erkannt werden soll.
 %%%%%%%%%%%%%%%%%%--Inhaltsverzeichnis--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\tableofcontents
 %%%%%%%%%%%%%%%%%%--Kapitel 1: Einführung--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -108,8 +111,12 @@
 %%%%%%%%%%%%%%%%%%--Kapitel 3: Experimentelle Ergebnisse--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\chapter{Experimentelle Ergebnisse}
 	\label{sec:ex}
+%%%%%%%%%%%%%%%%%%--Kapitel 3: Experimentelle Ergebnisse--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\chapter{\gls{de} im Vergleich mit anderen Segmentierungsmethoden}
+	\label{sec:de-vergleich}
 %%%%%%%%%%%%%%%%%%--Fazit--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\chapter*{Fazit}
+	\chapter{Fazit}
+	\label{sec:sumary}
 %%%%%%%%%%%%%%%%%%--Symbolverzeichnis--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\printglossaries
 %%%%%%%%%%%%%%%%%%--Tabellenverzeichnis--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
