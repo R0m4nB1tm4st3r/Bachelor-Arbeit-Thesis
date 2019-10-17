@@ -21,6 +21,8 @@
 }
 \usepackage[left=2.00cm, right=2.00cm, top=2.00cm, bottom=2.00cm]{geometry}
 \usepackage[acronym,toc]{glossaries}
+\usepackage[nottoc]{tocbibind}
+\usepackage[square, numbers, comma, sort & compress]{natbib} 
 
 \author{Roman Hochhalter}
 \title{Implementierung und Evaluierung einer evolutionären Methode zur Zeichenerkennung auf metallischen Oberflächen}
@@ -47,7 +49,7 @@
 		\begin{figure}[!htb]
 			\begin{minipage}{0.48\textwidth}
 				
-				\includegraphics[width=0.3\linewidth]{Logo_OTH_Regensburg}
+				\includegraphics[width=0.8\linewidth]{oth-regensburg-logo}
 			\end{minipage}
 			\hfill
 			\begin{minipage}{0.48\textwidth}
@@ -105,6 +107,24 @@
 %%%%%%%%%%%%%%%%%%--Kapitel 1: Einführung--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\chapter{Einführung}
 	\label{sec:intro}
+	Dieses Kapitel soll einen Überblick über Motivation, Ziel sowie Struktur der vorliegenden Arbeit verschaffen. Außerdem wird ein theoretisches Basiswissen in den Bereichen \textit{Bildverarbeitung} und \textit{Evolutionäre Algorithmen} bereitgestellt, welches notwendig ist, um den Kontext dieses Erzeugnisses greifbar zu machen. \cite{gonzalez-woods}
+	
+	\section{Ziel}
+	\label{sec:ziel}
+	
+	\section{Motivation}
+	\label{sec:motivation}
+	
+	\section{Grundlegendes über Bildverarbeitung}
+	\label{sec:bild-basics}
+	
+	Bevor tiefer in die Arbeit eingestiegen werden kann, muss zunächst geklärt werden, was denn eigentlich unter dem Begriff \textit{Bildverarbeitung} verstanden wird. Tatsächlich gibt es hier keine einheitliche Definition - das liegt unter anderem daran, dass die Grenzen zwischen Bildverarbeitung, Bildanalyse und maschinellem Sehen nicht klar abgesteckt werden können. 
+	\section{Evolutionäre Algorithmen}
+	\label{sec:evol}
+	
+	\glsreset{de}
+	
+	\section{\gls{de}}
 %%%%%%%%%%%%%%%%%%--Kapitel 2: Implementierung des Algorithmus--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\chapter{Implementierung des Algorithmus}
 	\label{sec:imp}
@@ -124,7 +144,8 @@
 %%%%%%%%%%%%%%%%%%--Abbildungsverzeichnis--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%--Literaturverzeichnis--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\bibliographystyle{unsrt}
+\bibliography{literatur}
 %%%%%%%%%%%%%%%%%%--Widmungen--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 
