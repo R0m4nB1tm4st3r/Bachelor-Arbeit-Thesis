@@ -107,7 +107,7 @@
 %%%%%%%%%%%%%%%%%%--Kapitel 1: Einführung--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\chapter{Einführung}
 	\label{sec:intro}
-	Dieses Kapitel soll einen Überblick über Motivation, Ziel sowie Struktur der vorliegenden Arbeit verschaffen. Außerdem wird ein theoretisches Basiswissen in den Bereichen \textit{Bildverarbeitung} und \textit{Evolutionäre Algorithmen} bereitgestellt, welches notwendig ist, um den Kontext dieses Erzeugnisses greifbar zu machen. \cite{gonzalez-woods}
+	Dieses Kapitel soll einen Überblick über Motivation, Ziel sowie Struktur der vorliegenden Arbeit verschaffen. Außerdem wird ein theoretisches Basiswissen in den Bereichen Bildverarbeitung und Evolutionäre Algorithmen bereitgestellt, welches notwendig ist, um den Kontext dieses Erzeugnisses greifbar zu machen. 
 	
 	\section{Ziel}
 	\label{sec:ziel}
@@ -118,13 +118,19 @@
 	\section{Grundlegendes über Bildverarbeitung}
 	\label{sec:bild-basics}
 	
-	Bevor tiefer in die Arbeit eingestiegen werden kann, muss zunächst geklärt werden, was denn eigentlich unter dem Begriff \textit{Bildverarbeitung} verstanden wird. Tatsächlich gibt es hier keine einheitliche Definition - das liegt unter anderem daran, dass die Grenzen zwischen Bildverarbeitung, Bildanalyse und maschinellem Sehen nicht klar abgesteckt werden können. 
+	Bevor tiefer in die Arbeit eingestiegen werden kann, muss zunächst geklärt werden, was denn eigentlich unter dem Begriff Bildverarbeitung verstanden wird. Tatsächlich gibt es hier keine einheitliche Definition - das liegt unter anderem daran, dass die Grenzen zwischen Bildverarbeitung und maschinellem Sehen nicht klar abgesteckt werden können. Eine mögliche Definition wird von Rafael C. Gonzalez und Richard E. Woods in ihrem Buch \textit{Digital Image Processing} beschrieben. Hierzu nehmen sie zunächst eine Unterscheidung von rechnergestützten Prozessen wie folgt vor: \cite{gonzalez-woods-imgproc}
+	\begin{description}
+		\item[Low-Level] Darunter fallen einfache Operationen direkt am Bild, wie zum Beispiel Rauschreduktion oder die Erhöhung des Kontrastes.
+		\item[Mid-Level] Diese Kategorie von Prozessen zeichnet sich dadurch aus, dass aus einem Bild bestimmte Eigenschaften/Bereiche extrahiert werden, um daraus eine Information zu gewinnen. Exemplarisch hierfür kann die Segmentierung angeführt werden, die im Rahmen dieser Arbeit als Versuchsobjekt für den in Abschnitt \ref{sec:de} vorgestellten Algorithmus dient.
+		\item[High-Level] Hier werden die aus den Mid-Level Prozessen erhaltenen Informationen verwendet, um bestimmte Aktionen auszulösen (z.B. im Bezug auf maschinelles Sehen)
+	\end{description}
 	\section{Evolutionäre Algorithmen}
 	\label{sec:evol}
 	
 	\glsreset{de}
 	
 	\section{\gls{de}}
+	\label{sec:de}
 %%%%%%%%%%%%%%%%%%--Kapitel 2: Implementierung des Algorithmus--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\chapter{Implementierung des Algorithmus}
 	\label{sec:imp}
