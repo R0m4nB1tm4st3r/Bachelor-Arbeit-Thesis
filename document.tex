@@ -109,21 +109,17 @@
 	\label{sec:intro}
 	Dieses Kapitel soll einen Überblick über Motivation, Ziel sowie Struktur der vorliegenden Arbeit verschaffen. Außerdem wird ein theoretisches Basiswissen in den Bereichen Bildverarbeitung und Evolutionäre Algorithmen bereitgestellt, welches notwendig ist, um den Kontext dieses Erzeugnisses greifbar zu machen. 
 	
-	\section{Ziel}
-	\label{sec:ziel}
-	
-	\section{Motivation}
-	\label{sec:motivation}
-	
 	\section{Grundlegendes über Bildverarbeitung}
 	\label{sec:bild-basics}
 	
-	Bevor tiefer in die Arbeit eingestiegen werden kann, muss zunächst geklärt werden, was denn eigentlich unter dem Begriff Bildverarbeitung verstanden wird. Tatsächlich gibt es hier keine einheitliche Definition - das liegt unter anderem daran, dass die Grenzen zwischen Bildverarbeitung und maschinellem Sehen nicht klar abgesteckt werden können. Eine mögliche Definition wird von Rafael C. Gonzalez und Richard E. Woods in ihrem Buch \textit{Digital Image Processing} beschrieben. Hierzu nehmen sie zunächst eine Unterscheidung von rechnergestützten Prozessen wie folgt vor: \cite{gonzalez-woods-imgproc}
+	In den zurückliegenden Textpassagen dieses Schriftstücks wurde die Bildverarbeitung bereits mehrfach erwähnt - aber was ist das denn konkret? Tatsächlich gibt es hier keine einheitliche Definition - das liegt unter anderem daran, dass die Grenzen zwischen Bildverarbeitung und maschinellem Sehen nicht klar abgesteckt werden können. Eine mögliche Definition wird von Rafael C. Gonzalez und Richard E. Woods in ihrem Buch \textit{Digital Image Processing} beschrieben. Hierzu nehmen sie zunächst eine Unterscheidung von rechnergestützten Prozessen wie folgt vor: \cite{gonzalez-woods-imgproc}
 	\begin{description}
 		\item[Low-Level] Darunter fallen einfache Operationen direkt am Bild, wie zum Beispiel Rauschreduktion oder die Erhöhung des Kontrastes.
 		\item[Mid-Level] Diese Kategorie von Prozessen zeichnet sich dadurch aus, dass aus einem Bild bestimmte Eigenschaften/Bereiche extrahiert werden, um daraus eine Information zu gewinnen. Exemplarisch hierfür kann die Segmentierung angeführt werden, die im Rahmen dieser Arbeit als Versuchsobjekt für den in Abschnitt \ref{sec:de} vorgestellten Algorithmus dient.
 		\item[High-Level] Hier werden die aus den Mid-Level Prozessen erhaltenen Informationen verwendet, um bestimmte Aktionen auszulösen (z.B. im Bezug auf maschinelles Sehen)
 	\end{description}
+
+	Auf dieser Grundlage definieren die Autoren den Terminus der Bildverarbeitung als Menge aller Low- und Mid-Level Prozesse. \cite{gonzalez-woods-imgproc}
 	\section{Evolutionäre Algorithmen}
 	\label{sec:evol}
 	
@@ -131,15 +127,28 @@
 	
 	\section{\gls{de}}
 	\label{sec:de}
+	
+	\section{Ziel}
+	\label{sec:ziel}
+	
+	Nun, nachdem der theoretische Grundstein gelegt wurde, lässt sich die Intention dieser Arbeit formulieren:
+	\begin{itemize}
+		\item Sie soll erstens die Problemstellung in einer klaren Form präsentieren (Abschnitt \ref{sec:motivation}) sowie in ein möglichst passendes mathematisches Modell unter Einbettung von \gls{de} übersetzen (Abschnitt \ref{sec:imp}).
+		\item Zweitens wird eine Umsetzungsstrategie zur Implementierung dieses Modells beschrieben (Abschnitt \ref{sec:imp}).
+		\item Schlussendlich sollen die Testergebnisse dieser Umsetzung in Kapitel \ref{sec:ex} veranschaulicht werden. Darauf aufbauend findet eine Bewertung hinsichtlich der Tauglichkeit der vorgestellten Strategie zur Lösung der eingangs in Abschnitt \ref{sec:motivation} geschilderten Problemstellung statt (Kapitel \ref{sec:sumary}). Zudem wird ein Ausblick auf mögliche Verbesserungsansätze geboten. 
+	\end{itemize}
+	
+	\newpage
+	
+	\section{Motivation}
+	\label{sec:motivation}
+	
 %%%%%%%%%%%%%%%%%%--Kapitel 2: Implementierung des Algorithmus--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\chapter{Implementierung des Algorithmus}
 	\label{sec:imp}
 %%%%%%%%%%%%%%%%%%--Kapitel 3: Experimentelle Ergebnisse--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\chapter{Experimentelle Ergebnisse}
 	\label{sec:ex}
-%%%%%%%%%%%%%%%%%%--Kapitel 3: Experimentelle Ergebnisse--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\chapter{\gls{de} im Vergleich mit anderen Segmentierungsmethoden}
-	\label{sec:de-vergleich}
 %%%%%%%%%%%%%%%%%%--Fazit--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\chapter{Fazit}
 	\label{sec:sumary}
@@ -152,7 +161,6 @@
 %%%%%%%%%%%%%%%%%%--Literaturverzeichnis--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{unsrt}
 \bibliography{literatur}
-%%%%%%%%%%%%%%%%%%--Widmungen--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 
 \end{document}
