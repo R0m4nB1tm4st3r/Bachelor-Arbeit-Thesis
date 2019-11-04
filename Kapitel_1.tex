@@ -19,11 +19,25 @@
 	\section{\gls{ea}}
 	\label{sec:evol}
 		
-		In der September-Ausgabe des Magazins \textit{Spektrum der Wissenschaft} \cite{j-h-holland} aus dem Jahr 1992 lassen sich folgende Worte von John H. Holland lesen, welche die Motivation hinter \gls{ea} sehr treffend zusammenfassen: \\
+		In der September-Ausgabe des Magazins \textit{Spektrum der Wissenschaft} \cite{j-h-holland} aus dem Jahr 1992 ließen sich folgende Worte von John H. Holland lesen: \\
 		
 		\begin{quote}
-			\textit{Lebewesen sind vollendete Problem loser. In der Vielzahl der Aufgaben, die sie bewältigen, übertreffen sie die besten Computerprogramme bei weitem - zur besonderen Frustration der Programmierer, die Monate oder gar Jahre harter geistiger Arbeit für einen Algorithmus aufwenden, wahrend Organismen ihre Fähigkeiten durch den scheinbar ziellosen Mechanismus der Evolution erwerben.}
+			\textit{Lebewesen sind vollendete Problemlöser. In der Vielzahl der Aufgaben, die sie bewältigen, übertreffen sie die besten Computerprogramme bei weitem - zur besonderen Frustration der Programmierer, die Monate oder gar Jahre harter geistiger Arbeit für einen Algorithmus aufwenden, während Organismen ihre Fähigkeiten durch den scheinbar ziellosen Mechanismus der Evolution erwerben.}
 		\end{quote}
+		
+		Dieses Zitat bietet bereits eine grobe Vorstellung vom Wesen und der Herkunft von \gls{ea}. Nach \cite{eib-smi-ea} besitzen \gls{ea} im Allgemeinen folgendes Schema: \\
+		\begin{itemize}
+			\item Gegeben sei eine Liste von Lösungskandidaten (im Folgenden \textbf{Population} genannt) als Input für eine Zielfunktion (fortlaufend als \textbf{Fitnessfunktion} bezeichnet), die in der Regel minimiert oder maximiert werden soll.
+			\item Des weiteren sei diese Population von der Generation $n$.
+			\item Aus dieser wird mittels verschiedener Variationsoperationen (\textbf{Rekombination}, \textbf{Mutation}) eine neue Population  erzeugt.
+			\item Im nächsten Schritt wird diese - wie auch die Ursprungspopulation zuvor - durch die Fitnessfunktion evaluiert.
+			\item Um anschließend eine Population der Generation $n+1$ zu generieren, deren Fitness größer gleich der $n$-ten Population ist, wird eine \textbf{Selektion}soperation durchgeführt, die aus den beiden vorliegenden Populationen jeweils die Kandidaten mit der besten Fitness auswählt.
+		\end{itemize}
+		
+		Die soeben beschriebene Vorgehensweise kann so lange wiederholt werden, bis entweder eine gewünschte Lösung vorliegt oder ein (vorher festgelegtes) Iterationslimit erreicht ist. \\
+		
+		Im Buch \cite{eib-smi-ea} findet ebenfalls Erwähnung, dass es zwar eine Kategorisierung von \gls{ea}s gibt, diese jedoch lediglich historischer Natur ist und einzig auf der Repräsentation der Populationsmitglieder beruht. Beispielsweise werden sie bei den \textbf{Genetischen Algorithmen} als Strings dargestellt, während
+		
 	
 	\glsreset{de}
 	
@@ -39,8 +53,6 @@
 			\item Zweitens wird eine Umsetzungsstrategie zur Implementierung dieses Modells beschrieben (Abschnitt \ref{sec:imp}).
 			\item Schlussendlich sollen die Testergebnisse dieser Umsetzung in Kapitel \ref{sec:ex} veranschaulicht werden. Darauf aufbauend findet eine Bewertung hinsichtlich der Tauglichkeit der vorgestellten Strategie zur Lösung der eingangs in Abschnitt \ref{sec:motivation} geschilderten Problemstellung statt (Kapitel \ref{sec:sumary}). Zudem wird ein Ausblick auf mögliche Verbesserungsansätze geboten. 
 		\end{itemize}
-	
-	\newpage
 	
 	\section{Motivation}
 	\label{sec:motivation}
