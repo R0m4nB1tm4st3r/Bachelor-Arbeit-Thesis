@@ -1,3 +1,4 @@
+
 \chapter{Einführung}
 \label{sec:intro}
 	Dieses Kapitel soll einen Überblick über Motivation, Ziel sowie Struktur der vorliegenden Arbeit verschaffen. Außerdem wird ein theoretisches Basiswissen in den Bereichen Bildverarbeitung und Evolutionäre Algorithmen bereitgestellt, welches notwendig ist, um den Kontext dieses Erzeugnisses greifbar zu machen. 
@@ -12,7 +13,9 @@
 			\item[High-Level] Hier werden die aus den Mid-Level Prozessen erhaltenen Informationen verwendet, um bestimmte Aktionen auszulösen (z.B. im Bezug auf maschinelles Sehen)
 		\end{description}
 		
-		Auf dieser Grundlage definieren die Autoren in \cite{gonzalez-woods-imgproc} den Terminus der Bildverarbeitung als Menge aller Low- und Mid-Level Prozesse. 
+		Auf dieser Grundlage definieren die Autoren in \cite{gonzalez-woods-imgproc} den Terminus der Bildverarbeitung als Menge aller Low- und Mid-Level Prozesse. \\
+		
+		Einen in der heutigen Zeit zentralen Anwendungsfall für die Bildverarbeitung stellt die \gls{ocr} dar. Dabei werden die Methoden der Bildverarbeitung dazu benutzt, bekannte Zeichen oder Formen aus digitalen Bildern zu extrahieren und weiterzuverarbeiten. Schon in den frühen 1950-ern - so bei \cite{cher-et-al-ocr} - haben Forscher nach Möglichkeiten gesucht, auf Papier befindlichen Text rechnergestützt einzulesen, um dem Menschen die mühselige Arbeit des manuellen Abtippens von Dokumenten abzunehmen.
 		
 	\glsreset{ea}
 	
@@ -25,21 +28,7 @@
 			\textit{Lebewesen sind vollendete Problemlöser. In der Vielzahl der Aufgaben, die sie bewältigen, übertreffen sie die besten Computerprogramme bei weitem - zur besonderen Frustration der Programmierer, die Monate oder gar Jahre harter geistiger Arbeit für einen Algorithmus aufwenden, während Organismen ihre Fähigkeiten durch den scheinbar ziellosen Mechanismus der Evolution erwerben.}
 		\end{quote}
 		
-		Dieses Zitat bietet bereits eine grobe Vorstellung vom Wesen und der 
-		Herkunft von \gls{ea}. In den meisten literarischen Werken zu diesem 
-		Thema - beispielsweise \cite{ger-kla-kru-intro}, \cite{eib-smi-ea} - 
-		wird festgehalten, dass verschiedene Kategorien von \gls{ea} 
-		existieren. Allerdings ist diese Einteilung laut \cite{eib-smi-ea} 
-		lediglich historischer Natur und verschwimmt zunehmend. Ursächlich 
-		hierfür ist, dass der einzige Unterschied zwischen den einzelnen 
-		Varianten in der Repräsentation\footnote{mögliche Darstellungsformen 
-		sind - wie in \cite{eib-smi-ea} beschrieben - Strings 
-		(\textbf{Genetische Algorithmen}), Vektoren von (reellen) 
-		Zahlen (\textbf{Evolutionsstrategien}) und Baumstrukturen 
-		(\textbf{Genetische Programmierung}) sowie endliche Automaten 
-		(\textbf{Evolutionäre Programmierung})} der Lösungskandidaten (hierzu 
-		in Kürze mehr) liegt. Die Funktionsweise, welche allen \gls{ea} 
-		zugrunde liegt, ist dieselbe: \\
+		Dieses Zitat bietet bereits eine grobe Vorstellung vom Wesen und der Herkunft von \gls{ea}. In den meisten literarischen Werken zu diesem Thema - beispielsweise \cite{ger-kla-kru-intro}, \cite{eib-smi-ea} - wird festgehalten, dass verschiedene Kategorien von \gls{ea} existieren. Allerdings ist diese Einteilung laut \cite{eib-smi-ea} lediglich historischer Natur und verschwimmt zunehmend. Ursächlich hierfür ist, dass der einzige Unterschied zwischen den einzelnen Varianten in der Repräsentation\footnote{mögliche Darstellungsformen sind - wie in \cite{eib-smi-ea} beschrieben - Strings (\textbf{Genetische Algorithmen}), Vektoren von (reellen) Zahlen (\textbf{Evolutionsstrategien}) und Baumstrukturen (\textbf{Genetische Programmierung}) sowie endliche Automaten (\textbf{Evolutionäre Programmierung})} der Lösungskandidaten (hierzu in Kürze mehr) liegt. Die Funktionsweise, welche allen \gls{ea} zugrunde liegt, ist dieselbe: \\
 		\begin{itemize}
 			\item Gegeben sei eine Liste von Lösungskandidaten (im Folgenden \textbf{Population} genannt) als Input für eine Zielfunktion (fortlaufend als \textbf{Fitnessfunktion} bezeichnet), die in der Regel minimiert oder maximiert werden soll.
 			\item Des weiteren sei diese Population von der Generation $n$.
