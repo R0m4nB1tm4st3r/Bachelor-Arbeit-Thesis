@@ -17,3 +17,21 @@
 
 /document.bbl
 /document.blg
+*.toc
+*.synctex.gz
+*.acn
+*.acr
+*.alg
+*.aux
+*.glg
+*.glo
+*.gls
+*.ist
+*.log
+*.out
+Thesis.pdf
+*.sbl
+*.slg
+*.sym
+*.bbl
+*.blg
