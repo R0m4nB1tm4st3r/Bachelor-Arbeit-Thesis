@@ -2,29 +2,6 @@
 \chapter{Einführung}
 \label{sec:intro}
 	Dieses Kapitel soll einen Überblick über Motivation, Ziel sowie Struktur der vorliegenden Arbeit verschaffen. Außerdem wird ein theoretisches Basiswissen in den Bereichen Bildverarbeitung und Evolutionäre Algorithmen bereitgestellt, welches notwendig ist, um den Kontext dieses Erzeugnisses greifbar zu machen. 
-		
-	\section{Grundlegendes über Bildverarbeitung}
-	\label{sec:bild-basics}
-		
-		In den zurückliegenden Textpassagen dieses Schriftstücks wurde die Bildverarbeitung bereits mehrfach erwähnt - aber was ist das denn konkret? Tatsächlich gibt es hier keine einheitliche Definition - das liegt unter anderem daran, dass die Grenzen zwischen Bildverarbeitung und maschinellem Sehen nicht klar abgesteckt werden können. Eine mögliche Definition wird von Rafael C. Gonzalez und Richard E. Woods in ihrem Buch \textit{Digital Image Processing} \cite{gonzalez-woods-imgproc} beschrieben. Hierzu nehmen sie zunächst eine Unterscheidung von rechnergestützten Prozessen wie folgt vor: 
-		\begin{description}
-			\item[Low-Level] Darunter fallen einfache Operationen direkt am Bild, wie zum Beispiel Rauschreduktion oder die Erhöhung des Kontrastes. Input sowie Output sind jeweils durch ein Bild gegeben.
-			\item[Mid-Level] Diese Kategorie von Prozessen zeichnet sich dadurch aus, dass aus einem Bild bestimmte Eigenschaften/Bereiche extrahiert werden, um daraus eine Information zu gewinnen. Exemplarisch hierfür kann die Segmentierung angeführt werden, die im Rahmen dieser Arbeit als Versuchsobjekt für den in Abschnitt \ref{sec:de} vorgestellten Algorithmus dient. Während der Input aus einem ganzen Bild besteht, beläuft sich der Output lediglich auf einen Teil davon beziehungsweise ein bestimmtes Attribut des Bildes.
-			\item[High-Level] Hier werden die aus den Mid-Level Prozessen erhaltenen Informationen verwendet, um bestimmte Aktionen auszulösen (z.B. im Bezug auf maschinelles Sehen)
-		\end{description}
-		
-		Auf dieser Grundlage definieren die Autoren in \cite{gonzalez-woods-imgproc} den Terminus der Bildverarbeitung als Menge aller Low- und Mid-Level Prozesse. \\
-		
-		Einen in der heutigen Zeit zentralen Anwendungsfall für die Bildverarbeitung stellt \gls{ocr} dar. Wie der Name bereits vermuten lässt, ist das Ziel der \gls{ocr}, Zeichen oder Formen aus digitalen Bildern zu extrahieren und weiterzuverarbeiten. Schon in den frühen 1950ern - so bei \cite{cher-et-al-ocr} - haben Forscher nach Möglichkeiten gesucht, auf Papier befindlichen Text rechnergestützt einzulesen, um dem Menschen die mühselige Arbeit des manuellen Abtippens von Dokumenten abzunehmen. Abbildung \ref{fig:ocr-system} illustriert hierbei die Vorgänge in einem typischen System, das \gls{ocr} realisieren soll. 
-		
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=0.7\linewidth]{Ablauf-OCR_Cheriet-et-al}
-			\caption[typisches \gls{ocr}-Ablaufschema]{Schematische Darstellung des Ablaufs in einem intelligenten \gls{ocr}-System (aus \cite{cher-et-al-ocr})}
-			\label{fig:ocr-system}
-		\end{figure}
-		
-	\glsreset{ea}
 	
 	\section{\gls{ea}}
 	\label{sec:evol}
@@ -51,6 +28,8 @@
 		festgelegtes) Iterationslimit erreicht ist. Im folgenden Abschnitt 
 		werden all diese Aspekte anhand des \gls{de} Algorithmus, welcher 
 		ebenfalls im Rahmen dieser Arbeit verwendet wird, deutlich.\\
+		
+		Vorrangig werden \gls{ea}
 		
 	\glsreset{de}
 	
