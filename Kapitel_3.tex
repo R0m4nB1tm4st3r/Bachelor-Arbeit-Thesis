@@ -1,2 +1,38 @@
-\chapter{Experimentelle Ergebnisse}
-	\label{sec:ex}
+\glsreset{de}
+\chapter{Der Lösungsansatz aus den \gls{ea} - \gls{de}}
+\label{sec:ex}
+
+	\section{\gls{ea}}
+	\label{sec:evol}
+	
+	In der September-Ausgabe des Magazins \textit{Spektrum der Wissenschaft} \cite{j-h-holland} aus dem Jahr 1992 ließen sich folgende Worte von John H. Holland lesen: \\
+	
+	\begin{quote}
+		\textit{Lebewesen sind vollendete Problemlöser. In der Vielzahl der Aufgaben, die sie bewältigen, übertreffen sie die besten Computerprogramme bei weitem - zur besonderen Frustration der Programmierer, die Monate oder gar Jahre harter geistiger Arbeit für einen Algorithmus aufwenden, während Organismen ihre Fähigkeiten durch den scheinbar ziellosen Mechanismus der Evolution erwerben. \\}
+	\end{quote}
+	
+	Dieses Zitat, welches die Einleitung von \cite{ger-kla-kru-intro} bildet, bietet bereits eine grobe Vorstellung vom Wesen und der Herkunft von \gls{ea}. In den meisten literarischen Werken zu diesem Thema - beispielsweise \cite{ger-kla-kru-intro, eib-smi-ea} - wird festgehalten, dass verschiedene Kategorien von \gls{ea} existieren. Allerdings ist diese Einteilung laut \cite{eib-smi-ea} lediglich historischer Natur und verschwimmt zunehmend. Ursächlich hierfür ist, dass der einzige Unterschied zwischen den einzelnen Varianten in der Repräsentation\footnote{mögliche Darstellungsformen sind - wie in \cite{eib-smi-ea} beschrieben - Strings (\textbf{Genetische Algorithmen}), Vektoren von (reellen) Zahlen (\textbf{Evolutionsstrategien}) und Baumstrukturen (\textbf{Genetische Programmierung}) sowie endliche Automaten (\textbf{Evolutionäre Programmierung})} der Lösungskandidaten (hierzu in Kürze mehr) liegt. Die Funktionsweise, welche allen \gls{ea} zugrunde liegt, ist dieselbe: \\
+	
+	\begin{itemize}
+		\item Gegeben sei eine Liste von Lösungskandidaten (im Folgenden \textbf{Population} genannt) als Input für eine Zielfunktion (fortlaufend als \textbf{Fitnessfunktion} bezeichnet), die in der Regel minimiert oder maximiert werden soll.
+		\item Des weiteren sei diese Population von der Generation $n$.
+		\item Zunächst wird die Fitness jener n-ten Population mithilfe der Fitnessfunktion ausgewertet und zwischengespeichert. 
+		\item Aus dieser wird mittels verschiedener Variationsoperationen (\textbf{Rekombination}, \textbf{Mutation}) eine neue Population  erzeugt.
+		\item Im nächsten Schritt wird diese ebenfalls durch die Fitnessfunktion evaluiert.
+		\item Um anschließend eine Population der Generation $n+1$ zu generieren, deren Fitness größer gleich der $n$-ten Population ist, wird eine \textbf{Selektion}soperation durchgeführt, die aus den beiden vorliegenden Populationen jeweils die Kandidaten mit der besten Fitness auswählt.
+	\end{itemize}
+	
+	Die soeben beschriebene Vorgehensweise kann so lange wiederholt werden, 
+	bis entweder eine gewünschte Lösung vorliegt oder ein (vorher 
+	festgelegtes) Iterationslimit erreicht ist. Im folgenden Abschnitt 
+	werden all diese Aspekte anhand des \gls{de} Algorithmus, welcher 
+	ebenfalls im Rahmen dieser Arbeit verwendet wird, deutlich.\\
+	
+	Vorrangig werden \gls{ea}
+
+	\glsreset{de}
+
+	\section{\gls{de}}
+	\label{sec:de}
+
+		Wie in Abschnitt \ref{sec:evol} bereits angedeutet, reiht sich \gls{de} in die \gls{ea} ein. Der von Rainer Storn und Kenneth Price \cite{storn-price-de} 
