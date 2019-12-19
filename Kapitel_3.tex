@@ -38,14 +38,17 @@
 	\section{\gls{de}}
 	\label{sec:de}
 
-		
 		Die Autoren in \cite{storn-price-de} entwickelten den \gls{de}-Algorithmus mit Hinblick auf die im Anschluss gelisteten Anforderungen\footnote{Diese Anforderungen sind zwar in \cite{storn-price-de} lediglich auf Minimierungsprobleme beschränkt, da solche in der Praxis häufiger vorkommen. Allerdings sind sie auf Maximierungsprobleme ebenso anwendbar.}
 		an eine in der Praxis anwendbare Optimierungsmethode:
-		\begin{itemize}
-			\item Sie soll mit nicht-differenzierbaren und nicht-linearen Funktionen, welche unter Umständen mehrere (lokale) Maxima/Minima aufweist, umgehen können.
+		\begin{enumerate}
+			\item Sie soll mit nicht-differenzierbaren und nicht-linearen 
+			Funktionen, welche unter Umständen mehrere (lokale) Maxima/Minima 
+			aufweisen, umgehen können.
 			\item Falls eine sehr rechenintensive Funktion auftritt, soll die Optimierungsmethode parallelisierbar sein. Es soll also möglich sein, die Berechnungen auf mehrere Prozessorkerne auszulagern.
 			\item Weiterhin soll die Optimierungsmethode leicht zu benutzen sein. Im gegebenen Kontext bedeutet dies zum Beispiel, dass sie wenige Kontrollparameter besitzt, die einfach bestimmbar sind.
-			\item 
-		\end{itemize}
+			\item Außerdem soll sie sich mit steigender Iterationszahl immer 
+			näher dem \textbf{globalen} Minimum/Maximum annähern.
+		\end{enumerate}
+		
 		Die ursprüngliche Variante \gls{de}1 ist hierbei folgendermaßen beschrieben:\\
 		Den Ausgangspunkt, wie in Abschnitt \ref{sec:evol} bereits erläutert, bildet eine Population aus $N_{P}$ Individuen $x_{i, G}$, wobei $N_{p}$ die Populationsgröße, $i$ der Populationsindex und $G$ der Generationsindex ist. 
