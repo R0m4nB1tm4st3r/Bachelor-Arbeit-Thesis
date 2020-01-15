@@ -31,27 +31,45 @@
 			\label{fig:ea-flowchart}
 		\end{figure}
 	
-		Nachstehend wird in Abschnitt \ref{sec:de} der Algorithmus \textit{Differentielle Evolution} als Beispiel aus den \gls{ea} erläutert und in den weiteren Kontext der vorliegenden Arbeit eingebettet.
+		Nachstehend wird in Abschnitt \ref{sec:de} die Methode der 
+		\textit{Differentiellen Evolution} als Beispiel vorgestellt und in den 
+		weiteren Kontext der vorliegenden Arbeit eingebettet.
 	
 		\glsreset{de}
 
 	\section{\gls{de}}
 	\label{sec:de}
 
-		Die Autoren in \cite{storn-price-de} entwickelten den \gls{de}-Algorithmus mit Hinblick auf die im Anschluss gelisteten Anforderungen\footnote{Diese Anforderungen sind zwar in \cite{storn-price-de} lediglich auf Minimierungsprobleme beschränkt, da solche in der Praxis häufiger vorkommen. Allerdings sind sie auf Maximierungsprobleme ebenso anwendbar.}
-		an eine in der Praxis anwendbare Optimierungsmethode:
+		Die Autoren in \cite{storn-price-de} entwickelten diese Methode mit 
+		Hinblick auf die im Anschluss gelisteten Anforderungen\footnote{Diese 
+		Anforderungen sind zwar in \cite{storn-price-de} lediglich auf 
+		Minimierungsprobleme beschränkt, da solche in der Praxis häufiger 
+		vorkommen. Allerdings sind sie auf Maximierungsprobleme ebenso 
+		anwendbar.}
+		an ein in der Praxis anwendbares Optimierungsverfahren:
 		\begin{enumerate}
-			\item Sie soll mit nicht-differenzierbaren und nicht-linearen 
+			\item Es soll mit nicht-differenzierbaren und nicht-linearen 
 			Funktionen, welche unter Umständen mehrere (lokale) Maxima/Minima 
 			aufweisen, umgehen können.
-			\item Falls eine sehr rechenintensive Funktion auftritt, soll die Optimierungsmethode parallelisierbar sein. Es soll also möglich sein, die Berechnungen auf mehrere Prozessorkerne auszulagern.
-			\item Weiterhin soll die Optimierungsmethode leicht zu benutzen sein. Im gegebenen Kontext bedeutet dies zum Beispiel, dass sie wenige Kontrollparameter besitzt, die einfach bestimmbar sind.
+			\item Falls eine sehr rechenintensive Funktion auftritt, soll das 
+			Verfahren parallelisierbar sein. Es soll also möglich sein, die 
+			Berechnungen auf mehrere Prozessorkerne auszulagern.
+			\item Weiterhin soll die Methode leicht zu benutzen sein. Im 
+			gegebenen Kontext bedeutet dies zum Beispiel, dass sie wenige 
+			Kontrollparameter besitzt, die einfach bestimmbar sind.
 			\item Außerdem soll sie sich mit steigender Iterationszahl immer 
 			näher dem \textbf{globalen} Minimum/Maximum annähern.
 		\end{enumerate}
-		Zwar ist \gls{de} laut \cite{storn-price-de} darauf ausgerichtet, die oben genannten Bedingungen zu erfüllen, den Wahrheitsgehalt dieser Aussage zu prüfen soll jedoch nicht Aufgabe der hier vorliegenden Arbeit sein. Hier liegt der Fokus primär auf der Anwendung des Algorithmus mit der Annahme, die vorangestellte Aussage sei wahr. 
+		Zwar ist \gls{de} laut \cite{storn-price-de} darauf ausgerichtet, die 
+		oben genannten Bedingungen zu erfüllen, den Wahrheitsgehalt dieser 
+		Aussage zu prüfen soll jedoch nicht Aufgabe der hier vorliegenden 
+		Arbeit sein. Hier liegt der Fokus primär auf der Anwendung des 
+		Verfahrens mit der Annahme, die vorangestellte Aussage sei wahr. 
 		
-		Die Grundstruktur des \gls{de}-Algorithmus lässt sich aus Abbildung \ref{fig:ea-flowchart} ablesen, jedoch muss für eine detaillierte Beschreibung der Idee hinter \gls{de} zunächst folgendes gegeben sein - Definition nach \cite{storn-price-de}:
+		Die Grundstruktur von \gls{de} lässt sich aus Abbildung 
+		\ref{fig:ea-flowchart} ablesen, jedoch muss für eine detaillierte 
+		Beschreibung der Idee hinter \gls{de} zunächst folgendes gegeben sein - 
+		Definition nach \cite{storn-price-de}:
 		\begin{itemize}
 			\item eine zu optimierende Funktion $f(x_{1}, x_{2}, ... , x_{D})$ - die \textit{Fitnessfunktion}
 			\item eine Population bestehend aus $N_{p}$ $D$-dimensionalen Vektoren $x_{i, g}$, wobei gilt:
@@ -66,55 +84,117 @@
 			\item eine maximale Anzahl an Generationen $G$
 		\end{itemize}
 		
-		Es gibt unterschiedliche Varianten des \gls{de}-Algorithmus, welche gewählt werden können und nach folgendem Schema notiert werden: \textit{\gls{de}/x/y/z} mit den nachstehenden Bedeutungen für x, y und z:
-		\begin{itemize}
-			\item x gibt an, welcher Vektor der Population bei der Mutationsoperation verändert wird. Dies kann entweder ein zufälliger Vektor sein (\textit{rand}) oder derjenige mit dem niedrigsten/höchsten Ergebnis bei Auswertung mit der Fitnessfunktion (\textit{best}).
-			\item y entspricht der Anzahl von Differenzvektoren bei der Mutation (in der Regel 1 oder 2).
-			\item mit z wird das Crossover-Schema ausgewählt. Üblicherweise wird \textit{bin} verwendet, aber es existieren - wie in \mbox{\cite[Seiten 93-97]{storn-price-de-book}} dokumentiert - einige weitere Schemata - als Beispiel ist hier \textit{exp} zu nennen. Der Sinn hinter diesen Bezeichnungen wird in Abschnitt \ref{sec:de-crossover} deutlich.
-		\end{itemize}
-		Nach diesem Muster wird die in \cite[Seite 47]{storn-price-de-book} als \textit{klassischer} DE-Algorithmus benannte Art als \textit{\gls{de}/rand/1/bin} geschrieben.
+		%\subsection{Varianten von \gls{de}}
+		%\label{sec:de-variants}
 		
-		Sind diese Informationen gegeben, kann \gls{de} ,wie in \cite{storn-price-de} dargestellt, beschrieben werden:
+		Es gibt unterschiedliche Varianten des \gls{de}-Algorithmus, welche 
+		gewählt werden können und nach folgendem Schema notiert werden: 
+		\textit{\gls{de}/x/y/z} mit den nachstehenden Bedeutungen für x, y 
+		und z:
+		\begin{itemize}
+			\item x gibt an, welcher Vektor der Population bei der 
+			Mutationsoperation verändert wird. Dies kann entweder ein 
+			zufälliger Vektor sein (\textit{rand}) oder derjenige mit dem 
+			niedrigsten/höchsten Ergebnis bei Auswertung mit der 
+			Fitnessfunktion (\textit{best}).
+			\item y entspricht der Anzahl von Differenzvektoren bei der 
+			Mutation (in der Regel 1 oder 2).
+			\item mit z wird das Crossover-Schema ausgewählt. Üblicherweise 
+			wird \textit{bin} verwendet, aber es existieren - wie in 
+			\mbox{\cite[Seiten 93-97]{storn-price-de-book}} dokumentiert - 
+			einige weitere Schemata - als Beispiel ist hier \textit{exp} zu 
+			nennen. Der Sinn hinter diesen Bezeichnungen wird in Paragraph 
+			\ref{sec:de-crossover} deutlich.
+		\end{itemize}
+		Nach diesem Muster wird die in \cite[Seite 47]{storn-price-de-book} 
+		als \textit{klassischer} DE-Algorithmus benannte Art als 
+		\textit{\gls{de}/rand/1/bin} geschrieben.\\
+		
+		Mit allen oben stehenden Informationen, lassen sich nachfolgend die 
+		einzelnen Operationen des Algorithmus definieren, welche zum großen 
+		Teil der Abbildung \ref{fig:ea-flowchart} entnommen werden können - und 
+		zwar so, wie sie in \cite{storn-price-de, storn-price-de-book} 
+		beschrieben sind.
 		
 		\subsection{Initialisierung}
 		\label{sec:de-init}
 		
-			Zunächst muss die initiale Population ($G = 0$) erzeugt werden - meist durch Füllen der Parametervektoren $x_{i, 0}$ mit Zufallszahlen. Im Bezug auf diese Zufallszahlen sowie alle kommenden wird eine Gleichverteilung angenommen. In manchen Fällen ist eine vorläufige Lösung $x_{nom, 0}$ verfügbar - dann kann die Population durch Addieren zufälliger Abweichungen zu $x_{nom, 0}$ generiert werden. Die nachfolgenden Operationen werden so lange iteriert, bis die vorher festgelegte Anzahl an Generationen $G$ erreicht ist.
+			Zunächst muss die initiale Population ($G = 0$) erzeugt werden - 
+			meist durch Befüllen der Parametervektoren $x_{i, 0}$ mit 
+			Zufallszahlen. Im Bezug auf diese Zufallszahlen sowie alle 
+			kommenden wird eine Gleichverteilung angenommen. In manchen Fällen 
+			ist eine vorläufige Lösung $x_{nom, 0}$ verfügbar - dann kann die 
+			Population durch Addieren zufälliger Abweichungen zu $x_{nom, 0}$ 
+			generiert werden. Die nachfolgenden Operationen werden so lange 
+			iteriert, bis die vorher festgelegte Anzahl an Generationen $G$ 
+			erreicht ist.
 			
 		\subsection{Mutation}
 		\label{sec:de-mutation}
 		
-			Für alle $x_{i, g}$ werden Mutantenvektoren $v_{i, g+1}$ nach der folgenden Rechenvorschrift gebildet:
-			\Large
-			\begin{flalign}
-				\label{eq:mutation1}
-				v_{i, g+1} = x_{r_{1}, g} + F \cdot (x_{r_{2}, g} - x_{r_{3}, g})
-			\end{flalign}
-			\normalsize
-			Hierbei bezeichnen $r_{1}$, $r_{2}$ und $r_{3}$ drei zufällig ausgewählte Indices, welche sowohl voneinander als auch von $i$ unterschiedlich sind.
+			Für alle $x_{i, g}$ werden Mutantenvektoren $v_{i, g+1}$ gebildet. 
+			Hierfür gibt es unterschiedliche Rechenvorschriften, abhängig 
+			davon, welche \gls{de}-Variante gewählt ist. Hierzu werden im 
+			Folgenden einige häufig vorkommende Beispiele dargelegt (die 
+			jeweils letzten Parameter werden in Paragraph 
+			\ref{sec:de-crossover} eingehender beleuchtet, da sie hier keine 
+			Auswirkungen zeigen):
 			
-			Anzumerken ist, dass anstelle der Vorschrift \ref{eq:mutation1} auch die nachstehende Gleichung verwendet werden kann:
-			\Large
-			\begin{flalign}
-				\label{eq:mutation2}
-				v_{i, g+1} = x_{best, g} + F \cdot (x_{r_{1}, g} - x_{r_{2}, g})
-			\end{flalign}
-			\normalsize
-			Dabei wurde in Gleichung \ref{eq:mutation2} der erste Summand durch den Vektor in der aktuellen Generation g ersetzt, der bei Einsetzen in die Fitnessfunktion den niedrigsten/höchsten Wert liefert. Diese Variante wird für das in Abschnitt \ref{sec:testsetting} erläuterte Testszenario verwendet.
-			
-			Der zweite Summand in Gleichung \ref{eq:mutation1} kann erweitert werden, um die Diversität unter den Vektoren $x_{i, g+1}$ zu erhöhen:
-			\Large
-			\begin{flalign}
-				\label{eq:mutation3}
-				F \cdot ((x_{r_{1}, g} + x_{r_{2}, g}) - (x_{r_{3}, g} + x_{r_{4}, g}))
-			\end{flalign}
-			\normalsize
-			Im Rahmen von Abschnitt \ref{sec:testsetting} sollte jedoch die Version aus den Gleichungen \ref{eq:mutation1} und \ref{eq:mutation2} ausreichend sein.
+			{\Large
+				\setlength{\abovedisplayskip}{0pt}
+				\setlength{\abovedisplayshortskip}{0pt}
+				\begin{flalign}
+					\label{eq:mutation1}
+					&\textrm{\gls{de}/\textcolor{blue}{rand}/\textcolor{green}{1}/bin:}&v_{i,
+					 g+1} = \color{blue}x_{r_{1}, g} \color{black}+ 
+					F \cdot \color{green}(x_{r_{1}, g} - x_{r_{2}, g})&&
+				\end{flalign}
+			}%
+			{\Large
+				\setlength{\abovedisplayskip}{0pt}
+				\setlength{\abovedisplayshortskip}{0pt}
+				\begin{flalign}
+					\label{eq:mutation2}
+					&\textrm{\gls{de}/\textcolor{blue}{best}/\textcolor{green}{1}/bin:}&v_{i,
+					 g+1} &= \color{blue}x_{best, g} \color{black}+ 
+					F \cdot \color{green}(x_{r_{1}, g} - x_{r_{2}, g})&&
+				\end{flalign}
+			}%
+			{\Large
+				\setlength{\abovedisplayskip}{0pt}
+				\setlength{\abovedisplayshortskip}{0pt}
+				\begin{flalign}
+					\label{eq:mutation3}
+					&\textrm{\gls{de}/\textcolor{blue}{best}/\textcolor{green}{2}/exp:}&v_{i,
+					 g+1} &= \color{blue}x_{best, g} \color{black}+ 
+					F \cdot \color{green}((x_{r_{1}, g} + x_{r_{2}, g}) - 
+					(x_{r_{3}, g} + 
+					x_{r_{4}, g}))&&
+				\end{flalign}
+			}%
+			$\forall i \in [1,2, ..., N_{p}]$ mit $r_{1}$, $r_{2}$, $r_{3}$ und 
+			$r_{4}$ als zufällige, 
+			voneinander und auch von $i$ unterschiedliche Indices und 
+			\textit{best} als Index desjenigen Vektors der Generation g, 
+			welcher bei Auswertung mit der Fitnessfunktion den 
+			niedrigsten/höchsten Wert innerhalb der Population liefert.
 			
 		\subsection{Crossover}
 		\label{sec:de-crossover}
 		
-			Das Ergebnis der Crossover-Operation ist eine neue Population, die im Selektionsvorgang mit der Ursprungspopulation konkurriert, mit den Vektoren $u_{i, g+1}$ und ihren Parametern $u_{j, i, g+1}$ mit $j = 1, 2, ... , D$. 
+			Das Ergebnis der Crossover-Operation ist eine neue Population, die 
+			beim Selektionsvorgang in Paragraph \ref{sec:de-selection} mit der 
+			Ursprungspopulation konkurriert, mit den Vektoren $u_{i, g+1}$ und 
+			ihren Parametern $u_{j, i, g+1}$ mit $j = 1, 2, ... , D$. Deren 
+			Ermittlung kann ebenfalls je nach Abwandlung von \gls{de} 
+			unterschiedliche Formen annehmen:
+			
+			
+			
+		\subsection{Selektion}
+		\label{sec:de-selection}
+		
+			
 			
 	\section{Die Testumgebung}
 	\label{sec:testsetting}
