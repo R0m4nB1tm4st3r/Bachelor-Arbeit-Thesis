@@ -13,7 +13,9 @@
 			\item[High-Level] Hier werden die aus den Mid-Level Prozessen erhaltenen Informationen verwendet, um bestimmte Aktionen auszulösen (z.B. im Bezug auf maschinelles Sehen).
 		\end{description}
 	
-		Auf dieser Grundlage fassen Gonzalez und Woods alle Low- und Mid-Level Prozesse zusammen und deckeln dies unter dem Begriff Bildverarbeitung.
+		Auf dieser Grundlage fassen Gonzalez und Woods alle Low- und Mid-Level Prozesse zusammen und deckeln dies unter dem Begriff Bildverarbeitung. \\
+		
+		Ein Bild in diesem Kontext kann aus mathematischer Sicht als eine Funktion $f(x, y)$ von zwei Variablen begriffen werden, die an der Stelle $(x, y)$ etwas zurückliefert, der als \textit{Intensität} interpretiert wird. Diese kann, je nach Farbsystem, entweder ein Skalar (schwarz-weiß) oder ein Tupel von Werten (RGB: 3-Tupel, CMYK: 4-Tupel) sein. 
 	
 		\glsreset{ocr}
 	
@@ -33,5 +35,46 @@
 		Damit ein System, wie es auf Abbildung \ref{fig:ocr-system} zu 
 		erkennen ist, zuverlässig Zeichen erkennen kann, muss es unter 
 		anderem auf die Formen der Zeichen trainiert werden und als Input ein für 
-		die Anwendung angemessen segmentiertes Bild erhalten. 
+		die Anwendung angemessen segmentiertes Bild erhalten. In Abbildung \ref{fig:seg-example-good} lässt sich an einem Beispiel betrachten, was die Segmentierung eines Bildes bewirkt, wobei dies ein Beispiel für eine gute Segmentierung ist - also eine Segmentierung, nach welcher der Text im Bild korrekt und vollständig gelesen werden konnte:
+		\begin{figure}[H]
+			\centering
+			\subfloat[][unsegmentiertes OriginalBild]{\includegraphics[width=0.48\linewidth]{IMG_3909245}}
+			\qquad
+			\subfloat[][segmentiertes Bild]{\includegraphics[width=0.48\linewidth]{IMG_3909245-seg-good}}
+			\caption{Segmentierung an einem Beispiel (Einteilung in zwei Klassen) - gutes Beispiel}
+			\label{fig:seg-example-good}
+		\end{figure}
+		Dem gegenübergestellt wird ein Exempel einer schlechten Segmentierung in Abbildung \ref{fig:seg-example-bad}:
+		\begin{figure}[H]
+			\centering
+			\subfloat[][unsegmentiertes OriginalBild]{\includegraphics[width=0.48\linewidth]{IMG_3909236}}
+			\qquad
+			\subfloat[][segmentiertes Bild]{\includegraphics[width=0.48\linewidth]{IMG_3909236-seg-bad}}
+			\caption{Segmentierung an einem Beispiel (Einteilung in zwei Klassen) - schlechtes Beispiel}
+			\label{fig:seg-example-bad}
+		\end{figure}
+		Wie auf Abbildung \ref{fig:seg-example-bad}b unschwer zu erkennen ist, werden zu viele Pixel in der Umgebung des ersten und letzten Zeichens schwarz gefärbt, was die Konturen dieser beinahe verschwinden lässt und so dafür sorgt, dass der auf Abbildung \ref{fig:seg-example-bad}a dargestellte Text nicht korrekt erkannt werden kann.\\
+		Wie im Buch \cite[Kapitel 10]{gonzalez-woods} von Gonzalez und Woods nachgelesen werden kann, gibt es mehrere Arten, um eine Segmentierung zu realisieren: \textit{Thresholding}, \textit{Edge-Based-Segmentation} und \textit{Region-Based-Segmentation}. Sowohl aus erstgenannter als auch aus letztgenannter Gruppe von Segmentierungsmethoden wird jeweils eine Möglichkeit in den Paragraphen \ref{sec:meth1} und \ref{sec:meth2} eingehend vorgestellt. \\
+		Allen Methoden ist gemein, dass im Vorfeld festgelegt werden muss, in wie viele Klassen $K$ das Bild eingeteilt werden soll. 
 		
+	\subsection{Möglichkeit 1: Gaußsche Annäherung an das Histogramm}
+	\label{sec:meth1}
+		
+		Dieses Vorgehen aus der Gruppe der \textit{Thresholding}-Methoden basiert auf der Arbeit von Erik Cuevas und seinen Kollegen \cite{cuevas-meth1} und zielt darauf ab, das Histogramm eines Bildes mittels einer Summe von Gaußschen Wahrscheinlichkeitsfunktionen zu approximieren und den Fehler zwischen diesen beiden Funktionen zu minimieren.
+		
+		Ist dies bekannt, existieren $K-1$ \textit{Threshold}-Werte $T_{1}, ... , T_{K-1}$, die in geeigneter Weise bestimmt werden müssen. Sobald das ebenfalls geschehen ist, werden im letzten Schritt alle Pixel des Bildes mittels untenstehender Gleichung \ref{eq:threshold} aus \cite[S. 739]{gonzalez-woods} zugeordnet:
+		
+		\begin{flalign}
+			\centering
+			g(x, y) = 
+			\begin{cases}
+				a_{1} & \textrm{if } f(x, y) > T_{K-1} \\
+				a_{2} & \textrm{if } T_{K-2} < f(x, y) \leq T_{K-1} \\
+				... \\
+				a_{K} & \textrm{if } f(x, y) \leq T_{1}
+			\end{cases}
+			\label{eq:threshold}
+		\end{flalign}
+	
+	\subsection{Möglichkeit 2: K-Means Clustering}
+	\label{sec:meth2}
