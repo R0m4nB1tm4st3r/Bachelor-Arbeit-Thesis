@@ -15,7 +15,7 @@
 	
 		Auf dieser Grundlage fassen Gonzalez und Woods alle Low- und Mid-Level Prozesse zusammen und deckeln dies unter dem Begriff Bildverarbeitung. \\
 		
-		Ein Bild in diesem Kontext kann aus mathematischer Sicht als eine Funktion $f(x, y)$ von zwei Variablen begriffen werden, die an der Stelle $(x, y)$ etwas zurückliefert, der als \textit{Intensität} interpretiert wird. Diese kann, je nach Farbsystem, entweder ein Skalar (schwarz-weiß) oder ein Tupel von Werten (RGB: 3-Tupel, CMYK: 4-Tupel) sein. 
+		Ein Bild in diesem Kontext kann aus mathematischer Sicht als eine Funktion $f(x, y)$ von zwei Variablen begriffen werden, die an der Stelle $(x, y)$ etwas zurückliefert, der als \textit{Intensität} interpretiert wird. Diese kann, je nach Farbsystem, entweder ein Skalar (schwarz-weiß) oder ein Tupel von Werten (\textbf{R}ed-\textbf{G}reen-\textbf{B}lue: 3-Tupel, nachzulesen bei \cite{rgb-info}) sein. 
 	
 		\glsreset{ocr}
 	
@@ -54,13 +54,20 @@
 			\label{fig:seg-example-bad}
 		\end{figure}
 		Wie auf Abbildung \ref{fig:seg-example-bad}b unschwer zu erkennen ist, werden zu viele Pixel in der Umgebung des ersten und letzten Zeichens schwarz gefärbt, was die Konturen dieser beinahe verschwinden lässt und so dafür sorgt, dass der auf Abbildung \ref{fig:seg-example-bad}a dargestellte Text nicht korrekt erkannt werden kann.\\
-		Wie im Buch \cite[Kapitel 10]{gonzalez-woods} von Gonzalez und Woods nachgelesen werden kann, gibt es mehrere Arten, um eine Segmentierung zu realisieren: \textit{Thresholding}, \textit{Edge-Based-Segmentation} und \textit{Region-Based-Segmentation}. Sowohl aus erstgenannter als auch aus letztgenannter Gruppe von Segmentierungsmethoden wird jeweils eine Möglichkeit in den Paragraphen \ref{sec:meth1} und \ref{sec:meth2} eingehend vorgestellt. \\
+		Wie im Buch \cite[Kapitel 10]{gonzalez-woods} von Gonzalez und Woods nachgelesen werden kann, gibt es mehrere Arten, um eine Segmentierung zu realisieren: \textit{Thresholding}, \textit{Edge-Based-Segmentation} und \textit{Region-Based-Segmentation}. Sowohl aus erstgenannter als auch aus letztgenannter Gruppe von Segmentierungsmethoden wird jeweils eine Möglichkeit in den Paragraphen \ref{sec:meth1} und \ref{sec:meth2} eingehend vorgestellt und im weiteren Verlauf dieser Arbeit zur Generierung der Ergebnisse in Kapitel \ref{sec:results} herangezogen. \\
 		Allen Methoden ist gemein, dass im Vorfeld festgelegt werden muss, in wie viele Klassen $K$ das Bild eingeteilt werden soll. 
 		
 	\subsection{Möglichkeit 1: Gaußsche Annäherung an das Histogramm}
 	\label{sec:meth1}
 		
 		Dieses Vorgehen aus der Gruppe der \textit{Thresholding}-Methoden basiert auf der Arbeit von Erik Cuevas und seinen Kollegen \cite{cuevas-meth1} und zielt darauf ab, das Histogramm eines Bildes mittels einer Summe von Gaußschen Wahrscheinlichkeitsfunktionen zu approximieren und den Fehler zwischen diesen beiden Funktionen zu minimieren.
+		
+		Unter der Annahme, dass ein Graustufenbild vorliegt - also die in Abschnitt \ref{sec:bild-basics} erwähnte Bildfunktion $f(x,y)$ einen Wert im Intervall $[0, ..., L-1]$ zurückliefert, mit $L = $ Anzahl der Graustufen - ergibt sich das Histogramm eines Bildes zu
+		\begin{equation}
+			h(g) = \frac{n_{g}}{N}, \quad h(g) \geq 0, \quad N = \sum_{g=0}^{L-1} n_{g}, \quad \sum_{g=0}^{L-1} h(g) = 1,
+			\label{eq:histogram}
+		\end{equation}
+		dabei steht $n_{g}$ für die Anzahl an Pixel, die die Graustufe $g$ aufweisen, während $N$ die Gesamtzahl aller Pixel im Bild repräsentiert. Aufgrund der Tatsache, dass $h(g)  =\frac{n_{g}}{N}$ die relative Häufigkeit des Grauwertes $g$ im Bild angibt, muss die Summe der relativen Häufigkeiten aller Graustufen im Intervall $[0, ... , L-1]$ notwendigerweise $1$ ergeben (siehe Bedingung in Gleichung \ref{eq:histogram} rechts).
 		
 		Ist dies bekannt, existieren $K-1$ \textit{Threshold}-Werte $T_{1}, ... , T_{K-1}$, die in geeigneter Weise bestimmt werden müssen. Sobald das ebenfalls geschehen ist, werden im letzten Schritt alle Pixel des Bildes mittels untenstehender Gleichung \ref{eq:threshold} aus \cite[S. 739]{gonzalez-woods} zugeordnet:
 		
