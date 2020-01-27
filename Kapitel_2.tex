@@ -20,6 +20,7 @@
 		\glsreset{ocr}
 	
 	\section{\gls{ocr} und Segmentierung}
+	\color{red} [Bild beschreiben] \color{black}
 	
 		\begin{figure}[H]
 			\centering
@@ -54,10 +55,10 @@
 			\label{fig:seg-example-bad}
 		\end{figure}
 		Wie auf Abbildung \ref{fig:seg-example-bad}b unschwer zu erkennen ist, werden zu viele Pixel in der Umgebung des ersten und letzten Zeichens schwarz gefärbt, was die Konturen dieser beinahe verschwinden lässt und so dafür sorgt, dass der auf Abbildung \ref{fig:seg-example-bad}a dargestellte Text nicht korrekt erkannt werden kann.\\
-		Wie im Buch \cite[Kapitel 10]{gonzalez-woods} von Gonzalez und Woods nachgelesen werden kann, gibt es mehrere Arten, um eine Segmentierung zu realisieren: \textit{Thresholding}, \textit{Edge-Based-Segmentation} und \textit{Region-Based-Segmentation}. Sowohl aus erstgenannter als auch aus letztgenannter Gruppe von Segmentierungsmethoden wird jeweils ein Ansatz, der sich dem Optimierungsverfahren aus Abschnitt \ref{de} bedient, in den Paragraphen \ref{sec:meth1} und \ref{sec:meth2} eingehend vorgestellt sowie im weiteren Verlauf dieser Arbeit zur Generierung der Ergebnisse in Kapitel \ref{sec:results} herangezogen. \\
-		Allen Methoden ist gemein, dass im Vorfeld festgelegt werden muss, in wie viele Klassen $K$ das Bild eingeteilt werden soll. 
+		Wie im Buch \cite[Kapitel 10]{gonzalez-woods} von Gonzalez und Woods nachgelesen werden kann, gibt es mehrere Arten, um eine Segmentierung zu realisieren: \textit{Thresholding}, \textit{Edge-Based-Segmentation} und \textit{Region-Based-Segmentation}. Sowohl aus erstgenannter als auch aus letztgenannter Gruppe von Segmentierungsmethoden wird jeweils ein möglicher Ansatz in den Paragraphen \ref{sec:meth1} und \ref{sec:meth2} eingehend vorgestellt sowie im weiteren Verlauf dieser Arbeit zur Generierung der Ergebnisse in Kapitel \ref{sec:results} herangezogen. \\
+		%Allen Methoden ist gemein, dass im Vorfeld festgelegt werden muss, in wie viele Klassen $K$ das Bild eingeteilt werden soll. 
 		
-	\subsection{Möglichkeit 1: Gaußsche Annäherung an das Histogramm}
+	\subsection{Modell 1: Gaußsche Annäherung an das Histogramm}
 	\label{sec:meth1}
 		
 		Dieses Vorgehen aus der Gruppe der \textit{Thresholding}-Methoden basiert auf der Arbeit von Erik Cuevas und seinen Kollegen \cite{cuevas-meth1} und zielt darauf ab, das Histogramm eines Bildes mittels einer Summe von Gaußschen Wahrscheinlichkeitsfunktionen zu approximieren und den Fehler zwischen diesen beiden Funktionen zu minimieren.
@@ -73,15 +74,16 @@
 			\centering
 			p(x) = \sum_{i=1}^{K} P_{i} \cdot p_{i}(x) \quad \textrm{mit} \quad p_{i}(x) = \frac{1}{\sigma_{i}\sqrt{2\pi}} \exp\left(-\frac{1}{2} \cdot \left(\frac{x - \mu_{i}}{\sigma_{i}}\right)^{2}\right), \label{eq:gauss-sum}
 		\end{flalign}
-		unter der Voraussetzung, dass $K$ die Anzahl der Klassen, in die das Bild aufgeteilt werden soll, und $P_{i}$ die Wahrscheinlichkeit dafür darstellt, dass ein zufällig gewählter Grauwert $x$ innerhalb der Klasse $i$ liegt. Weiterhin ist $p_{i}(x)$ die der Klasse $i$ zugehörige Komponente der Approximation $p(x)$ in Form einer Gaußschen Dichtefunktion, die Formel wurde aus der mathematischen Formelsammlung von Lothar \cite{papula-gauss} entnommen, da die Darstellung in \cite{cuevas-meth1} fehlerhaft ist (das $\sigma_{i}$ im ersten Bruch befindet sich innerhalb der Quadratwurzel). $\sigma_{i}$ ist als Standardabweichung und $\mu_{i}$ als Mittelwert angegeben.\\
-		Nun sind die Parameter $\sigma_{i}$, $\mu_{i}$ und $P_{i}$ so zu bestimmen, dass der mittlere quadratische Fehler $E$ zwischen dem Histogramm $h(x)$ und der Approximation $p(x)$ an dieses gemäß Gleichung \ref{eq:mean-square-error}
+		unter der Voraussetzung, dass $K$ die Anzahl der Klassen, in die das Bild aufgeteilt werden soll, und $P_{i}$ die Wahrscheinlichkeit dafür darstellt, dass ein zufällig gewählter Grauwert $x$ innerhalb der Klasse $i$ liegt. Weiterhin ist $p_{i}(x)$ die der Klasse $i$ zugehörige Komponente der Approximation $p(x)$ in Form einer Gaußschen Dichtefunktion, jedoch wurde die Formel aus \cite{papula-gauss} entnommen, da die Darstellung in \cite{cuevas-meth1} fehlerhaft ist (das $\sigma_{i}$ im ersten Bruch befindet sich innerhalb der Quadratwurzel). Zusätzlich ist $\sigma_{i}$ als Standardabweichung und $\mu_{i}$ als Mittelwert angegeben.\\
+		Nun sind die Parameter $\sigma_{i}$, $\mu_{i}$ und $P_{i}$ mit $i = 1, ..., K$ so zu bestimmen, dass nachstehendes Problem
 		\begin{flalign}
 			\centering
-			E = \frac{1}{n} \sum_{j=1}^{n}[p(x_{j}) - h(x_{j})]^{2} + \omega \cdot \left| \left( \sum_{i=1}^{K} P_{i} \right) - 1 \right| \label{eq:mean-square-error}
+			\underset{P_{i}, \mu_{i}, \sigma_{i}}{arg \ min} \ E \quad \textrm{mit } E = \frac{1}{n} \sum_{j=1}^{n}[p(x_{j}) - h(x_{j})]^{2} + \omega \cdot \left| \left( \sum_{i=1}^{K} P_{i} \right) - 1 \right| \label{eq:mean-square-error}
 		\end{flalign}
-		minimiert wird - ausgehend von einem Histogramm mit $n$ Punkten und dem Penalty-Faktor $\omega$. Bei der Formel in \ref{eq:mean-square-error} ist insbesondere der zweite Summand $\omega \cdot \left| \left( \sum_{i=1}^{K} P_{i} \right) - 1 \right|$ zu beachten. Dieser addiert zum Fehler einen Strafzuschlag für den Fall, dass die Bedingung $\left( \sum_{i=1}^{K} P_{i} \right) = 1$ nicht erfüllt wird. \\
-		Die Minimierung einer solchen Funktion ist laut \cite{cuevas-meth1} kein leichtes Problem. Hierfür lautet die Begründung wie folgt:\\
-		Mit der zu optimierenden Funktion \ref{eq:mean-square-error} liegt ein Problem vor, das von den $3 \cdot K$ Parameter - namentlich $\sigma_{i}$, $\mu_{i}$ und $P_{i}$ mit $i = 1, ... ,K$ - abhängt. Zieht man nun in Betracht, dass $K \geq 2$ ist, da $K = 1$ bedeuten würde, alle Pixel eines Bild in eine Klasse zu unterteilen - resultierend in einem monochromen Bild - so ergeben sich 
+		gelöst wird - ausgehend von einem Histogramm mit $n$ Punkten und dem Penalty-Faktor $\omega$. 
+		Die Minimierung einer solchen Funktion erweist sich laut \cite{cuevas-meth1} als ein komplexes Problem. Mit den Mitteln der \textit{Analysis} wäre es hierzu notwendig, die jeweiligen partiellen Differentiationen der Funktion in Gleichung \ref{eq:mean-square-error} nach den Parametern $\sigma_{i}$, $\mu_{i}$ und $P_{i}$ zu bestimmen und gleich Null zu setzen [Beleg einfügen]. Dies führt aufgrund der Exponentialterme in besagter Gleichung auf ein \textit{nichtlineares Gleichungssystem} mit $3K$ Unbekannten und $3K$ Gleichungen. \\
+		%Mit der zu optimierenden Funktion \ref{eq:mean-square-error} liegt ein Problem vor, das von den $3 \cdot K$ Parameter - namentlich $\sigma_{i}$, $\mu_{i}$ und $P_{i}$ mit $i = 1, ... ,K$ - abhängt. Zieht man nun in Betracht, dass $K \geq 2$ ist, da $K = 1$ bedeuten würde, alle Pixel eines Bild in eine Klasse zu unterteilen - resultierend in einem monochromen Bild - so ergeben sich 
+		
 		
 		Ist dies bekannt, existieren $K-1$ \textit{Threshold}-Werte $T_{1}, ... , T_{K-1}$, die in geeigneter Weise bestimmt werden müssen. Sobald das ebenfalls geschehen ist, werden im letzten Schritt alle Pixel des Bildes mittels untenstehender Gleichung \ref{eq:threshold} aus \cite[S. 739]{gonzalez-woods} zugeordnet:
 		
@@ -97,5 +99,5 @@
 			\label{eq:threshold}
 		\end{flalign}
 	
-	\subsection{Möglichkeit 2: K-Means Clustering}
+	\subsection{Modell 2: K-Means Clustering}
 	\label{sec:meth2}
