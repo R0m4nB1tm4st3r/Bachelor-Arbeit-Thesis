@@ -35,7 +35,7 @@
 		Damit ein System, wie es auf Abbildung \ref{fig:ocr-system} zu 
 		erkennen ist, zuverlässig Zeichen erkennen kann, muss es unter 
 		anderem auf die Formen der Zeichen trainiert werden und als Input ein für 
-		die Anwendung angemessen segmentiertes Bild erhalten. In Abbildung \ref{fig:seg-example-good} lässt sich an einem Beispiel betrachten, was die Segmentierung eines Bildes bewirkt, wobei dies ein Beispiel für eine gute Segmentierung ist - also eine Segmentierung, nach welcher der Text im Bild korrekt und vollständig gelesen werden konnte:
+		die Anwendung angemessen segmentiertes Bild erhalten. In Abbildung \ref{fig:seg-example-good} lässt sich an einem Beispiel betrachten, was die Segmentierung eines Bildes bewirkt, wobei dies ein Beispiel für eine gute Segmentierung ist - also eine Segmentierung, nach der der Text im Bild korrekt und vollständig gelesen werden konnte:
 		\begin{figure}[H]
 			\centering
 			\subfloat[][unsegmentiertes OriginalBild]{\includegraphics[width=0.48\linewidth]{IMG_3909245}}
@@ -54,7 +54,7 @@
 			\label{fig:seg-example-bad}
 		\end{figure}
 		Wie auf Abbildung \ref{fig:seg-example-bad}b unschwer zu erkennen ist, werden zu viele Pixel in der Umgebung des ersten und letzten Zeichens schwarz gefärbt, was die Konturen dieser beinahe verschwinden lässt und so dafür sorgt, dass der auf Abbildung \ref{fig:seg-example-bad}a dargestellte Text nicht korrekt erkannt werden kann.\\
-		Wie im Buch \cite[Kapitel 10]{gonzalez-woods} von Gonzalez und Woods nachgelesen werden kann, gibt es mehrere Arten, um eine Segmentierung zu realisieren: \textit{Thresholding}, \textit{Edge-Based-Segmentation} und \textit{Region-Based-Segmentation}. Sowohl aus erstgenannter als auch aus letztgenannter Gruppe von Segmentierungsmethoden wird jeweils eine Möglichkeit in den Paragraphen \ref{sec:meth1} und \ref{sec:meth2} eingehend vorgestellt und im weiteren Verlauf dieser Arbeit zur Generierung der Ergebnisse in Kapitel \ref{sec:results} herangezogen. \\
+		Wie im Buch \cite[Kapitel 10]{gonzalez-woods} von Gonzalez und Woods nachgelesen werden kann, gibt es mehrere Arten, um eine Segmentierung zu realisieren: \textit{Thresholding}, \textit{Edge-Based-Segmentation} und \textit{Region-Based-Segmentation}. Sowohl aus erstgenannter als auch aus letztgenannter Gruppe von Segmentierungsmethoden wird jeweils ein Ansatz, der sich dem Optimierungsverfahren aus Abschnitt \ref{de} bedient, in den Paragraphen \ref{sec:meth1} und \ref{sec:meth2} eingehend vorgestellt sowie im weiteren Verlauf dieser Arbeit zur Generierung der Ergebnisse in Kapitel \ref{sec:results} herangezogen. \\
 		Allen Methoden ist gemein, dass im Vorfeld festgelegt werden muss, in wie viele Klassen $K$ das Bild eingeteilt werden soll. 
 		
 	\subsection{Möglichkeit 1: Gaußsche Annäherung an das Histogramm}
@@ -62,12 +62,26 @@
 		
 		Dieses Vorgehen aus der Gruppe der \textit{Thresholding}-Methoden basiert auf der Arbeit von Erik Cuevas und seinen Kollegen \cite{cuevas-meth1} und zielt darauf ab, das Histogramm eines Bildes mittels einer Summe von Gaußschen Wahrscheinlichkeitsfunktionen zu approximieren und den Fehler zwischen diesen beiden Funktionen zu minimieren.
 		
-		Unter der Annahme, dass ein Graustufenbild vorliegt - also die in Abschnitt \ref{sec:bild-basics} erwähnte Bildfunktion $f(x,y)$ einen Wert im Intervall $[0, ..., L-1]$ zurückliefert, mit $L = $ Anzahl der Graustufen - ergibt sich das Histogramm eines Bildes zu
-		\begin{equation}
-			h(g) = \frac{n_{g}}{N}, \quad h(g) \geq 0, \quad N = \sum_{g=0}^{L-1} n_{g}, \quad \sum_{g=0}^{L-1} h(g) = 1,
-			\label{eq:histogram}
-		\end{equation}
-		dabei steht $n_{g}$ für die Anzahl an Pixel, die die Graustufe $g$ aufweisen, während $N$ die Gesamtzahl aller Pixel im Bild repräsentiert. Aufgrund der Tatsache, dass $h(g)  =\frac{n_{g}}{N}$ die relative Häufigkeit des Grauwertes $g$ im Bild angibt, muss die Summe der relativen Häufigkeiten aller Graustufen im Intervall $[0, ... , L-1]$ notwendigerweise $1$ ergeben (siehe Bedingung in Gleichung \ref{eq:histogram} rechts).
+		Unter der Annahme, dass ein Graustufenbild vorliegt - also die in Abschnitt \ref{sec:bild-basics} erwähnte Bildfunktion $f(x,y)$ einen Wert im Intervall $[0, ..., L-1]$ zurückliefert, mit $L = $ Anzahl der Graustufen - ergibt sich das Histogramm eines Bildes nach Gleichung \ref{eq:histogram} zu
+		\begin{flalign}
+			\centering
+			h(g) &= \frac{n_{g}}{N} \label{eq:histogram}
+		\end{flalign}
+		dabei steht $n_{g}$ für die Anzahl an Pixel mit der Graustufe $g$, während $N$ die Gesamtzahl aller Pixel im Bild repräsentiert.\\
+		Dieses Histogramm kann dann näherungsweise über die Summe von Gaußschen Wahrscheinlichkeitsdichtefunktionen, wie in Gleichung \ref{eq:gauss-sum} dargestellt, angegeben werden:
+		\begin{flalign}
+			\centering
+			p(x) = \sum_{i=1}^{K} P_{i} \cdot p_{i}(x) \quad \textrm{mit} \quad p_{i}(x) = \frac{1}{\sigma_{i}\sqrt{2\pi}} \exp\left(-\frac{1}{2} \cdot \left(\frac{x - \mu_{i}}{\sigma_{i}}\right)^{2}\right), \label{eq:gauss-sum}
+		\end{flalign}
+		unter der Voraussetzung, dass $K$ die Anzahl der Klassen, in die das Bild aufgeteilt werden soll, und $P_{i}$ die Wahrscheinlichkeit dafür darstellt, dass ein zufällig gewählter Grauwert $x$ innerhalb der Klasse $i$ liegt. Weiterhin ist $p_{i}(x)$ die der Klasse $i$ zugehörige Komponente der Approximation $p(x)$ in Form einer Gaußschen Dichtefunktion, die Formel wurde aus der mathematischen Formelsammlung von Lothar \cite{papula-gauss} entnommen, da die Darstellung in \cite{cuevas-meth1} fehlerhaft ist (das $\sigma_{i}$ im ersten Bruch befindet sich innerhalb der Quadratwurzel). $\sigma_{i}$ ist als Standardabweichung und $\mu_{i}$ als Mittelwert angegeben.\\
+		Nun sind die Parameter $\sigma_{i}$, $\mu_{i}$ und $P_{i}$ so zu bestimmen, dass der mittlere quadratische Fehler $E$ zwischen dem Histogramm $h(x)$ und der Approximation $p(x)$ an dieses gemäß Gleichung \ref{eq:mean-square-error}
+		\begin{flalign}
+			\centering
+			E = \frac{1}{n} \sum_{j=1}^{n}[p(x_{j}) - h(x_{j})]^{2} + \omega \cdot \left| \left( \sum_{i=1}^{K} P_{i} \right) - 1 \right| \label{eq:mean-square-error}
+		\end{flalign}
+		minimiert wird - ausgehend von einem Histogramm mit $n$ Punkten und dem Penalty-Faktor $\omega$. Bei der Formel in \ref{eq:mean-square-error} ist insbesondere der zweite Summand $\omega \cdot \left| \left( \sum_{i=1}^{K} P_{i} \right) - 1 \right|$ zu beachten. Dieser addiert zum Fehler einen Strafzuschlag für den Fall, dass die Bedingung $\left( \sum_{i=1}^{K} P_{i} \right) = 1$ nicht erfüllt wird. \\
+		Die Minimierung einer solchen Funktion ist laut \cite{cuevas-meth1} kein leichtes Problem. Hierfür lautet die Begründung wie folgt:\\
+		Mit der zu optimierenden Funktion \ref{eq:mean-square-error} liegt ein Problem vor, das von den $3 \cdot K$ Parameter - namentlich $\sigma_{i}$, $\mu_{i}$ und $P_{i}$ mit $i = 1, ... ,K$ - abhängt. Zieht man nun in Betracht, dass $K \geq 2$ ist, da $K = 1$ bedeuten würde, alle Pixel eines Bild in eine Klasse zu unterteilen - resultierend in einem monochromen Bild - so ergeben sich 
 		
 		Ist dies bekannt, existieren $K-1$ \textit{Threshold}-Werte $T_{1}, ... , T_{K-1}$, die in geeigneter Weise bestimmt werden müssen. Sobald das ebenfalls geschehen ist, werden im letzten Schritt alle Pixel des Bildes mittels untenstehender Gleichung \ref{eq:threshold} aus \cite[S. 739]{gonzalez-woods} zugeordnet:
 		
