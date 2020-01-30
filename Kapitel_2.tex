@@ -80,24 +80,46 @@
 			\centering
 			\underset{P_{i}, \mu_{i}, \sigma_{i}}{arg \ min} \ E \quad \textrm{mit } E = \frac{1}{n} \sum_{j=1}^{n}[p(x_{j}) - h(x_{j})]^{2} + \omega \cdot \left| \left( \sum_{i=1}^{K} P_{i} \right) - 1 \right| \label{eq:mean-square-error}
 		\end{flalign}
-		gelöst wird - ausgehend von einem Histogramm mit $n$ Punkten und dem Penalty-Faktor $\omega$. 
-		Die Minimierung einer solchen Funktion erweist sich laut \cite{cuevas-meth1} als ein komplexes Problem. Mit den Mitteln der \textit{Analysis} wäre es hierzu notwendig, die jeweiligen partiellen Differentiationen der Funktion in Gleichung \ref{eq:mean-square-error} nach den Parametern $\sigma_{i}$, $\mu_{i}$ und $P_{i}$ zu bestimmen und gleich Null zu setzen [Beleg einfügen]. Dies führt aufgrund der Exponentialterme in besagter Gleichung auf ein \textit{nichtlineares Gleichungssystem} mit $3K$ Unbekannten und $3K$ Gleichungen. \\
-		%Mit der zu optimierenden Funktion \ref{eq:mean-square-error} liegt ein Problem vor, das von den $3 \cdot K$ Parameter - namentlich $\sigma_{i}$, $\mu_{i}$ und $P_{i}$ mit $i = 1, ... ,K$ - abhängt. Zieht man nun in Betracht, dass $K \geq 2$ ist, da $K = 1$ bedeuten würde, alle Pixel eines Bild in eine Klasse zu unterteilen - resultierend in einem monochromen Bild - so ergeben sich 
+		gelöst wird - ausgehend von der Graustufenanzahl $n$ und dem Penalty-Faktor $\omega$, der sich genau dann auswirkt, wenn die Bedingung $\sum_{i=1}^{K} P_{i} = 1$ nicht erfüllt ist.\\
+		Die Minimierung einer solchen Funktion erweist sich laut \cite{cuevas-meth1} als ein komplexes Problem. Eine analytische Lösung erfordert, wie in \cite[S. 248-250]{papula-optimization} anschaulich dargelegt, die jeweiligen partiellen Differentiationen der Funktion in Gleichung \ref{eq:mean-square-error} nach den Parametern $\sigma_{i}$, $\mu_{i}$ und $P_{i}$ zu bestimmen und gleich Null zu setzen. Dies führt auf ein Gleichungssystem mit $3K$ Unbekannten und $3K$ Gleichungen der Form
+		\begin{flalign*}
+			\textrm{\color{red} Formeln für partielle Ableitungen hier einfügen}
+		\end{flalign*}
+		Nach den in \cite[S. 26]{papula-alg-eq} aufgestellten Kriterien für die Linearität eines Gleichungssystems ist obiges ein \textit{nichtlineares} Gleichungssystem und somit analytisch bestenfalls mit erheblichem Aufwand lösbar \color{red}[muss noch belegt werden]\color{black}. In solchen Fällen wird dann ein numerisches Verfahren zur Approximation einer Lösung in annehmbarer Zeit herangezogen, beispielsweise jenes, das in Abschnitt \ref{sec:de} behandelt wird. 
 		
+		Im Folgenden soll zur weiteren Erläuterung des Modells davon ausgegangen werden, dass die Kenngrößen $\sigma_{i}$, $\mu_{i}$ und $P_{i}$ im Sinne von Gleichung \ref{eq:mean-square-error} bereits ermittelt wurden. \\
+		Der letzte Schritt, um hieraus schließlich die Threshold-Werte $T_{1}, ... , T_{K-1}$ zu erhalten, führt über die Lösung der folgenden quadratischen Gleichung:
+		\begin{flalign}
+			AT_{i^{2}} + BT_{i} + C &= 0 \label{eq:quad-eq-thresh}
+		\end{flalign}
+		mit den Koeffizienten
+		\begin{flalign}
+			A &= \sigma_{i}^{2} - \sigma_{i+1}^{2}, \notag \\
+			B &= 2 \cdot (\mu_{i}\sigma_{i+1}^{2} - \mu_{i+1}\sigma_{i}^{2}), \notag \\
+			C &= (\sigma_{i}\mu_{i+1})^{2} - (\sigma_{i+1}\mu_{i})^{2} + 2 \cdot (\sigma_{i}\sigma_{i+1})^{2} \cdot \ln \left(\frac{\sigma_{i+1}P_{i}}{\sigma_{i}P_{i+1}}\right) \notag
+		\end{flalign}
+		Wie sich diese im Einzelnen zusammensetzen, soll an dieser Stelle nicht erläutert werden, lässt sich jedoch bei \cite[S. 13+14]{cuevas-meth1} nachlesen.
 		
-		Ist dies bekannt, existieren $K-1$ \textit{Threshold}-Werte $T_{1}, ... , T_{K-1}$, die in geeigneter Weise bestimmt werden müssen. Sobald das ebenfalls geschehen ist, werden im letzten Schritt alle Pixel des Bildes mittels untenstehender Gleichung \ref{eq:threshold} aus \cite[S. 739]{gonzalez-woods} zugeordnet:
-		
+		Anhand der so ermittelten Threshold-Werte werden nun alle Pixel des Bildes mittels untenstehender Gleichung aus \cite[S. 739]{gonzalez-woods} zugeordnet:
 		\begin{flalign}
 			\centering
 			g(x, y) = 
 			\begin{cases}
-				a_{1} & \textrm{if } f(x, y) > T_{K-1} \\
-				a_{2} & \textrm{if } T_{K-2} < f(x, y) \leq T_{K-1} \\
+				a_{1} & \textrm{if } f(x, y) > T_{K-1}\\
+				a_{2} & \textrm{if } T_{K-2} < f(x, y) \leq T_{K-1}\\
 				... \\
 				a_{K} & \textrm{if } f(x, y) \leq T_{1}
 			\end{cases}
 			\label{eq:threshold}
 		\end{flalign}
+		Dabei sind $a_{1}, ..., a_{K}$ voneinander unterschiedliche Graustufenwerte.
 	
-	\subsection{Modell 2: K-Means Clustering}
+	\subsection{Modell 2: K-Means}
 	\label{sec:meth2}
+	
+		Der K-Means-Algorithmus wurde 1967 von James B. MacQueen \cite{macqueen-kmeans} vorgestellt und wird heute noch häufig zur Gruppierung großer Datenmengen eingesetzt - so in \cite{kmeans-info} zu lesen.\\
+		Die grundlegende Idee hinter K-Means besteht in der Generierung von Mittelpunkten als Repräsentanten für verschiedene Bereiche in einem Datensatz. 
+		\begin{definition}
+			\label{def:kmeans1}
+			Gegeben sei eine Folge von Messpunkten $x_{j} \in \mathbb{R}^{d},$ $j \in [1,n]$, wobei $n$ gleich der Anzahl der Messpunkte ist und $d$ für die Dimension dieser steht. Dann existiert eine Segmentierung $S = \{S_{1}, ..., S_{K}\}$
+		\end{definition}
