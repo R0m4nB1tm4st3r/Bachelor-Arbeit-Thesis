@@ -118,8 +118,17 @@
 	\label{sec:meth2}
 	
 		Der K-Means-Algorithmus wurde 1967 von James B. MacQueen \cite{macqueen-kmeans} vorgestellt und wird heute noch häufig zur Gruppierung großer Datenmengen eingesetzt - so in \cite{kmeans-info} zu lesen.\\
-		Die grundlegende Idee hinter K-Means besteht in der Generierung von Mittelpunkten als Repräsentanten für verschiedene Bereiche in einem Datensatz. 
+		Die grundlegende Idee hinter K-Means besteht in der Generierung von Mittelpunkten als Repräsentanten für verschiedene Bereiche in einem Datensatz. Formal ausgedrückt bedeutet dies - mit fortlaufendem Bezug auf \cite{mozdren-meth2}:
 		\begin{definition}
 			\label{def:kmeans1}
-			Gegeben sei eine Folge von Messpunkten $x_{j} \in \mathbb{R}^{d},$ $j \in [1,n]$, wobei $n$ gleich der Anzahl der Messpunkte ist und $d$ für die Dimension dieser steht. Dann existiert eine Segmentierung $S = \{S_{1}, ..., S_{K}\}$
+			Gegeben sei eine Folge von Messpunkten $x_{j} \in \mathbb{R}^{d},$ $j \in [1,n]$, wobei $n$ gleich der Anzahl der Messpunkte ist und $d$ für die Dimension dieser steht. Dann existiert eine Segmentierung $S = \{S_{1}, ..., S_{K}\}$ mit den für die einzelnen Segmenten $S_{i}$ stellvertretenden Mittelpunkten $\{\mu_{i}, ..., \mu_{K}\}$, die der Lösung des anschließenden Problems genügt:
+			\begin{flalign}
+				\centering
+				\underset{S}{arg \ min} \sum_{i=1}^{K} \sum_{x_{j} \in S_{i}}\left|\left|x_{j} - \mu_{i}\right|\right|^{2}
+			\end{flalign}
 		\end{definition}
+		Dabei erfolgt die Eruierung der Mittelpunkte in zwei Schritten:\\
+		Im \textit{Assignment-Step} werden die Datenpunkte den jeweiligen Segmenten nach folgender Vorschrift zugewiesen:
+		\begin{flalign}
+			S_{i}^{(t)} = \left\{ x_{a} : \left|\left|x_{a} - \mu_{i}^{(t)}\right|\right|^{2} \leq \left|\left|x_{a} - \mu_{j^{(t)}}\right|\right|^{2} \forall j \in \{1, ..., K\} \textbackslash \{i\}  \right\}
+		\end{flalign}
