@@ -2,14 +2,8 @@
 \label{sec:intro}
 	%\setcounter{page}{1}
 	
-	Im Laufe der Zeit steigen innerhalb der Industrie die Ansprüche an Qualität und der Identifikation/Dokumentation von Produkten. In diesem Bezug gewinnt die Bildverarbeitung zunehmend an Bedeutung und ist in der automatisierten Produktion heute unabdingbar \cite[S. x]{indust-imgproc}. 
-	Vor allem spielt sie bei der Identifikation eine unverzichtbare Rolle. 
-	Menschen auf die Maschine übergehen, so auch der Vorgang des Sehens oder 
-	auch des Erkennens von bestimmten Mustern. Dies ist für Industriebetriebe 
-	insofern interessant, da es beispielsweise eine automatisierte 
-	Identifizierung von Bauteilen anhand eines darauf angebrachten 
-	Zeichencodes ermöglicht. Abbildung \ref{fig:example-code} zeigt 
-	exemplarisch einen derartigen Code:
+	Im Laufe der Zeit steigen innerhalb der Industrie die Ansprüche an Qualität und der Identifikation/Dokumentation von Produkten. In diesem Bezug gewinnt die Bildverarbeitung zunehmend an Bedeutung und ist in der automatisierten Produktion heute unabdingbar \cite[S. 1]{indust-imgproc}. 
+	Vor allem spielt sie bei der Identifikation eine unverzichtbare Rolle. Dort wird sie zur maschinellen Erfassung optischer Kennzeichnungen, wie sie beispielsweise in Abbildung \ref{fig:example-code} zu sehen sind, eingesetzt:
 	\begin{figure}[h]
 		\centering
 		\subfloat[][Bauteil mit gelasertem Code]{\includegraphics[width=0.48\linewidth]{IMG_01002DOKR5B_c}}
@@ -18,13 +12,7 @@
 		\caption{Beispiel-Bauteile mit unterschiedlichen Einbringungsmethoden für Zeichencodes}
 		\label{fig:example-code}
 	\end{figure}
-
-	Einen solchen Code maschinell zu erkennen - ein Problem aus dem Fachgebiet 
-	der \textit{\gls{ocr}}, ist keineswegs eine 
-	triviale Aufgabe, wie in Kapitel \ref{sec:prob} herausgestellt wird. Bis 
-	heute wurde dieses Problem nicht in einer Weise gelöst, die eine 100\% 
-	Erfolgsquote in für die freie Wirtschaft praktikabler Zeit verspricht. Auf 
-	der Suche nach einer zufriedenstellenden Lösung müssen unter anderem durch 
+	Derartige Codes zu lesen, ist für den Menschen eine triviale Aufgabe, doch für die Maschine bisweilen eines der anspruchsvollsten Probleme in der industriellen Bildverarbeitung. Dabei ist ein essenzieller Arbeitsschritt die Segmentierung der Bilder \cite[S. 136]{indust-imgproc}. Auf der Suche nach einer zufriedenstellenden Lösung müssen unter anderem durch 
 	Experimente mit unterschiedlichen Methoden Erkenntnisse gewonnen werden. 
 	Hierzu soll im Übrigen auch diese vorliegende Arbeit einen Beitrag leisten, 
 	indem sie untersucht, inwieweit ein ausgewähltes Verfahren aus der Gruppe 
