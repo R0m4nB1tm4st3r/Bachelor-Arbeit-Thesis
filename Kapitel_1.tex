@@ -4,28 +4,21 @@
 	
 	Im Laufe der Zeit steigen innerhalb der Industrie die Ansprüche an Qualität und der Identifikation/Dokumentation von Produkten. In diesem Bezug gewinnt die Bildverarbeitung zunehmend an Bedeutung und ist in der automatisierten Produktion heute unabdingbar \cite[S. 1]{indust-imgproc}. 
 	Vor allem spielt sie bei der Identifikation eine unverzichtbare Rolle. Dort wird sie zur maschinellen Erfassung optischer Kennzeichnungen, wie sie beispielsweise in Abbildung \ref{fig:example-code} zu sehen sind, eingesetzt:
-	\begin{figure}[h]
+	\begin{figure}[H]
 		\centering
 		\subfloat[][Bauteil mit gelasertem Code]{\includegraphics[width=0.48\linewidth]{IMG_01002DOKR5B_c}}
 		\qquad
 		\subfloat[][Bauteil mit graviertem Code]{\includegraphics[width=0.48\linewidth]{IMG_3909200}}
-		\caption{Beispiel-Bauteile mit unterschiedlichen Einbringungsmethoden für Zeichencodes}
+		\caption{Beispiel-Bauteile mit unterschiedlichen Kennzeichnungsmethoden}
 		\label{fig:example-code}
 	\end{figure}
-	Derartige Codes zu lesen, ist für den Menschen eine triviale Aufgabe, doch für die Maschine bisweilen eines der anspruchsvollsten Probleme in der industriellen Bildverarbeitung. Dabei ist ein essenzieller Arbeitsschritt die Segmentierung der Bilder \cite[S. 136]{indust-imgproc}. Auf der Suche nach einer zufriedenstellenden Lösung müssen unter anderem durch 
-	Experimente mit unterschiedlichen Methoden Erkenntnisse gewonnen werden. 
-	Hierzu soll im Übrigen auch diese vorliegende Arbeit einen Beitrag leisten, 
-	indem sie untersucht, inwieweit ein ausgewähltes Verfahren aus der Gruppe 
-	der \textit{evolutionären Methoden} dafür geeignet ist, einen wichtigen 
-	Schritt innerhalb der \gls{ocr} zu realisieren. \\
+	Derartige Codes zu lesen, ist für den Menschen eine triviale Aufgabe, doch für die Maschine bisweilen eines der anspruchsvollsten Probleme in der industriellen Bildverarbeitung. Dabei ist ein essenzieller Arbeitsschritt die Segmentierung der Bilder \cite[S. 136]{indust-imgproc}. Damit die Zeichen auf dem Bauteil korrekt gelesen werden können, ist es von zentraler Bedeutung, diese auf dem Bild klar von der restlichen Oberfläche des Werkstücks zu isolieren. Unter Berücksichtigung der eingangs in diesem Kapitel bereits erwähnten steigenden Anforderungen an Bildverarbeitungssysteme müssen immer wieder neue Wege gefunden werden, diese Aufgabenstellung mit höherer Performance sowie Zuverlässigkeit zu meistern.\\
+	Hierzu soll im Übrigen auch mit dieser vorliegenden Arbeit ein Beitrag geleistet werden, indem untersucht wird, ob ein ausgewähltes Verfahren aus der Gruppe 
+	der \textit{evolutionären Methoden} für die Segmentierung von Bildern eingesetzt werden kann. \\
 	
-	Dabei ist die folgende Struktur vorgesehen: \\
+	Hierbei ist folgende Struktur vorgesehen: \\
 	In Kapitel \ref{sec:prob} werden die Hintergründe bzw. die grundlegende 
-	Motivation aus der Bildverarbeitung - spezifischer ausgedrückt, aus der 
-	\gls{ocr} - hinter dieser Arbeit beleuchtet.\\
-	Kapitel \ref{sec:sol} formuliert konkret die Aufgabenstellung und zeigt Ansätze 
-	zur Lösung dieser sowie die Umsetzung in Form von Programmcode auf.\\
-	Daraufhin werden in Kapitel \ref{sec:results} die Ergebnisse aus der 
-	Umsetzung der in Kapitel \ref{sec:sol} vorgestellten Ideen und eine 
-	Interpretation der Resultate präsentiert.\\
-	Abgerundet wird dieses Erzeugnis durch eine abschließende Bewertung sowie einen Ausblick auf die künftige Verwendung der in Kapitel \ref{sec:sol} erarbeiteten Implementierung.
+	Motivation aus der Bildverarbeitung - hinter dieser Arbeit beleuchtet. Außerdem werden dort zwei Ansätze zur Segmentierung vorgestellt.
+	Kapitel \ref{sec:sol} führt in die evolutionären Methoden ein und stellt darauffolgend aus dieser Gruppe von Optimierungsverfahren ein Beispiel - die Differenzielle Evolution - vor. Am Ende des Kapitels wird diese dann mit der Segmentierung verknüpft, in Verbindung mit den aus dem vorhergehenden Kapitel dargestellten Segmentierungsverfahren.
+	Daraufhin wird in Kapitel \ref{sec:results} ein möglicher Implementierungsvorschlag in der Programmiersprache Python aufgezeigt und im Anschluss die Ergebnisse aus der Umsetzung der in den Kapiteln \ref{sec:prob} \ref{sec:sol} angestellten Überlegungen sowie eine Interpretation der Resultate präsentiert.
+	Den Abschluss in Kapitel \ref{sec:summary} bildet eine weitergehende Bewertung der Ergebnisse aus vorigem Kapitel und auch eine Auflistung der daraus zu ziehenden Schlüsse. Dies wird begleitet von einem Ausblick auf die zukünftige Behandlung der in dieser Arbeit vorgeschlagenen Lösung.

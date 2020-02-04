@@ -6,28 +6,24 @@
 	\section{Grundlegendes über Bildverarbeitung}
 	\label{sec:bild-basics}
 	
-		Was ist Bildverarbeitung? - Um diese Frage zu beantworten, wird das Buch \textit{Digital Image Processing} von Rafael C. Gonzalez und Richard E. Woods \cite[S. 1--3]{gonzalez-woods} herangezogen. Die Autoren konstatieren, dass die Meinungen hierzu unter den Fachleuten auseinandergehen. Präzise ausgedrückt, liegt die Meinungsverschiedenheit in der Frage nach der Grenze zwischen der Bildverarbeitung und damit verwandten Bereichen, z.B. dem maschinellen Sehen. Gonzalez und Woods versuchen deshalb, ihre eigene Definition aufzustellen, die hier zum Zwecke der Veranschaulichung ausreichen soll. So beginnen sie damit, eine Unterscheidung von rechnergestützten Prozessen wie folgt vorzunehmen: 
+		Zunächst steht die Frage nach einer (allgemein gültigen) Definition des Begriffes Bildverarbeitung im Raum. Hierzu gehen die Meinungen unter den Fachleuten auseinander. Präzise ausgedrückt, liegt die Meinungsverschiedenheit in der Frage nach der Grenze zwischen der Bildverarbeitung und damit verwandten Bereichen, z.B. dem maschinellen Sehen \cite[S. 2]{gonzalez-woods}. Zum Zwecke der Veranschaulichung soll die in \cite[S. 2]{gonzalez-woods} gegebene Definition ausreichen. Danach soll zu Beginn eine Unterscheidung von rechnergestützten Prozessen wie folgt vorgenommen werden:
 		\begin{description}
 			\item[Low-Level] Darunter fallen einfache Operationen direkt am Bild, wie zum Beispiel Rauschreduktion oder die Erhöhung des Kontrastes, oder aber auch simple arithmetische Operationen. Input sowie Output sind jeweils durch ein Bild gegeben.
 			\item[Mid-Level] Diese Kategorie von Prozessen zeichnet sich dadurch aus, dass aus einem Bild bestimmte Eigenschaften/Bereiche extrahiert werden, um daraus eine Information zu gewinnen. Während die Eingabe aus einem ganzen Bild besteht, beläuft sich die Ausgabe lediglich auf einen Teil davon bzw. ein bestimmtes Attribut des Bildes. Exemplarisch hierfür kann die Segmentierung angeführt werden, die in dieser Arbeit mit Hilfe der in Abschnitt \ref{sec:de} vorgestellten Methode realisiert werden soll. Bei der Segmentierung wird das Bild in Sub-Bilder eingeteilt, bis die für die jeweilige Anwendung interessante Region klar abgegrenzt im Bild erscheint.
 			\item[High-Level] Hier werden die aus den Mid-Level Prozessen erhaltenen Informationen verwendet, um bestimmte Aktionen auszulösen (z.B. im Bezug auf maschinelles Sehen).
 		\end{description}
-	
-		Auf dieser Grundlage fassen Gonzalez und Woods alle Low- und Mid-Level Prozesse zusammen und deckeln dies unter dem Begriff Bildverarbeitung. \\
-		
-		Ein Bild in diesem Kontext kann aus mathematischer Sicht als eine Funktion $f(x, y)$ von zwei Variablen begriffen werden, die an der Stelle $(x, y)$ einen Wert zurückliefert, der als \textit{Intensität} interpretiert wird. Diese kann, je nach Farbsystem, entweder ein Skalar (schwarz-weiß) oder ein Tupel (\textbf{R}ed-\textbf{G}reen-\textbf{B}lue: 3-Tupel, nachzulesen bei \cite{rgb-info}) sein. \\
-		
-		Die benötigten Komponenten für ein Bildverarbeitungssystem können in Abbildung \ref{fig:indust-imgproc} eingesehen werden:
-		\begin{figure}[h]
+		Auf dieser Grundlage lassen sich nun die beiden erstgenannten Sorten von Prozessen zusammenfassen unter dem Terminus Bildverarbeitung. \\
+		In Anlehnung hieran kann ein Bild aus mathematischer Sicht als eine Funktion $f(x, y)$ von zwei Variablen begriffen werden, die an der Stelle $(x, y)$ ein Ergebnis zurückliefert, das als \textit{Intensität} interpretiert wird. Diese kann, je nach Farbsystem, entweder ein Skalar (schwarz-weiß) oder ein Tupel (\textbf{R}ed-\textbf{G}reen-\textbf{B}lue: 3-Tupel \cite{rgb-info}) sein \cite[S. 50]{gonzalez-woods}. \\
+		Um der Vollständigkeit genüge zu tun, wird in Abbildung \ref{fig:indust-imgproc} der hardwaretechnische Aufbau eines Bildverarbeitungssystems dargestellt:
+		\begin{figure}[H]
 			\includegraphics[width=\linewidth]{Industrielles-Bildverarbeitungssystem}
 			\caption{typischer Aufbau eines Bildverarbeitungssystems (nachgezeichnet aus \cite[S. 7]{indust-imgproc})}
 			\label{fig:indust-imgproc}
 		\end{figure}
+		\color{red} [Bild beschreiben] \color{black}
 		\vfill
 		\glsreset{ocr}
 	\section{\gls{ocr} und Segmentierung}
-	\color{red} [Bild beschreiben] \color{black}
-	
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=\linewidth]{Ablauf-OCR_Cheriet-et-al.pdf}
@@ -36,13 +32,10 @@
 				\cite[Seite 7]{cher-et-al-ocr})}
 			\label{fig:ocr-system}
 		\end{figure}
-	
-		Einen in der heutigen Zeit zentralen Anwendungsfall für die Bildverarbeitung stellt \gls{ocr} dar. Wie der Name bereits vermuten lässt, ist das Ziel der \gls{ocr}, Zeichen oder Formen aus digitalen Bildern zu extrahieren und weiterzuverarbeiten. Schon in den frühen 1950ern - so bei \cite{cher-et-al-ocr} - haben Forscher nach Möglichkeiten gesucht, auf Papier befindlichen Text mit Hilfe von Rechnerkapazitäten einzulesen, um dem Menschen die mühselige Arbeit des manuellen Abtippens von Dokumenten abzunehmen.
-
-		Damit ein System, wie es auf Abbildung \ref{fig:ocr-system} zu 
-		erkennen ist, zuverlässig Zeichen erkennen kann, muss es unter 
-		anderem auf die Formen der Zeichen trainiert werden und als Input ein für 
-		die Anwendung angemessen segmentiertes Bild erhalten. In Abbildung \ref{fig:seg-example-good} lässt sich an einem Beispiel betrachten, was die Segmentierung eines Bildes bewirkt, wobei dies ein Beispiel für eine gute Segmentierung ist - also eine Segmentierung, nach der der Text im Bild korrekt und vollständig gelesen werden konnte:
+		
+		Einen in der heutigen Zeit zentralen Anwendungsfall für die (industrielle) Bildverarbeitung stellt \gls{ocr} dar. Wie der Name bereits vermuten lässt, ist das Ziel der \gls{ocr}, Zeichen oder Formen aus digitalen Bildern zu extrahieren und weiterzuverarbeiten. Dieser Vorgang lässt sich in vier Phasen unterteilen (blau gefärbte Rechtecke in Abbildung \ref{fig:ocr-system}): Während der \textbf{Layout Analysis} wird das noch rohe Bild so bearbeitet, dass lediglich der relevante Bereich mit der zu lesenden Information zu sehen ist. Anschließend wird das Bild beim \textbf{Pre-Processing} gegebenenfalls von Störeffekten wie Rauschen oder Artefakten befreit, welche die Erfolgschance in der nächsten Phase mindern. Darauf aufbauend geschieht in der nun folgenden \textbf{Character Recognition} die eigentliche Zeichenerkennung. Hier findet sich auch die Segmentierung wieder, die für eine erfolgreiche Zeichenerkennung von elementarer Bedeutung sowie ein zentraler Bestandteil dieser Arbeit ist. Schließlich erfolgt im Zuge des \textbf{Post-Processing} eine Validierung des zuvor gelesenen Textes und eventuell eine weitere Verarbeitung der gewonnenen Information. Schon in den frühen 1950ern haben Forscher nach Möglichkeiten gesucht, auf Papier befindlichen Text mit Hilfe von Rechnerkapazitäten einzulesen, um dem Menschen die mühselige Arbeit des manuellen Abtippens von Dokumenten abzunehmen \cite{cher-et-al-ocr}.\\
+		
+		Wie im obigen Absatz bereits festgehalten, kann eine erfolgreiche Zeichenerkennung ohne eine gute Segmentierung nicht funktionieren. In Abbildung \ref{fig:seg-example-good} lässt sich an einem Beispiel betrachten, was die Segmentierung eines Bildes bewirkt, wobei dies ein Beispiel für eine gute Segmentierung ist - also eine Segmentierung, nach der der Text im Bild korrekt und vollständig gelesen werden konnte:
 		\begin{figure}[H]
 			\centering
 			\subfloat[][unsegmentiertes OriginalBild]{\includegraphics[width=0.48\linewidth]{IMG_3909245}}
@@ -60,8 +53,8 @@
 			\caption{Segmentierung an einem Beispiel (Einteilung in zwei Klassen) - schlechtes Beispiel}
 			\label{fig:seg-example-bad}
 		\end{figure}
-		Wie auf Abbildung \ref{fig:seg-example-bad}b unschwer zu erkennen ist, werden zu viele Pixel in der Umgebung des ersten und letzten Zeichens schwarz gefärbt, was die Konturen dieser beinahe verschwinden lässt und so dafür sorgt, dass der auf Abbildung \ref{fig:seg-example-bad}a dargestellte Text nicht korrekt erkannt werden kann.\\
-		Wie im Buch \cite[Kapitel 10]{gonzalez-woods} von Gonzalez und Woods nachgelesen werden kann, gibt es mehrere Arten, um eine Segmentierung zu realisieren: \textit{Thresholding}, \textit{Edge-Based-Segmentation} und \textit{Region-Based-Segmentation}. Sowohl aus erstgenannter als auch aus letztgenannter Gruppe von Segmentierungsmethoden wird jeweils ein möglicher Ansatz in den Paragraphen \ref{sec:meth1} und \ref{sec:meth2} eingehend vorgestellt sowie im weiteren Verlauf dieser Arbeit zur Generierung der Ergebnisse in Kapitel \ref{sec:results} herangezogen. \\
+		Wie auf Abbildung \ref{fig:seg-example-bad}b zu erkennen ist, werden zu viele Pixel in der Umgebung des ersten und letzten Zeichens schwarz gefärbt, was die Konturen dieser beinahe verschwinden lässt. Zwar kann sich mit dem menschlichen Auge der Text noch erkannt werden, aber für eine Maschine wird es aus diesem Bild unmöglich, den darauf befindlichen Text zu lesen.\\
+		Aus der bereits langjährigen Geschichte der \gls{ocr} können inzwischen zahlreiche Arten gefunden werden, um eine Segmentierung zu realisieren. Diese sind in drei Gruppen unterteilbar \cite[Kapitel 10]{gonzalez-woods}: \textit{Thresholding}, \textit{Edge-Based-Segmentation} und \textit{Region-Based-Segmentation}. Sowohl aus erstgenannter als auch aus letztgenannter Gruppe von Segmentierungsmethoden wird jeweils ein möglicher Ansatz in den Paragraphen \ref{sec:meth1} und \ref{sec:meth2} eingehend vorgestellt sowie im weiteren Verlauf dieser Arbeit zur Generierung der Ergebnisse in Kapitel \ref{sec:results} herangezogen. \\
 		%Allen Methoden ist gemein, dass im Vorfeld festgelegt werden muss, in wie viele Klassen $K$ das Bild eingeteilt werden soll. 
 		
 	\subsection{Modell 1: Gaußsche Annäherung an das Histogramm}
