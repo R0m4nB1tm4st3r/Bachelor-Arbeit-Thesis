@@ -3,7 +3,7 @@
 \chapter{Der Lösungsansatz}
 \label{sec:sol}
 
-	Dieses Kapitel beginnt mit einer Einführung in die Evolutionären Algorithmen und stellt daraus ein Beispiel vor, das im weiteren Verlauf der Arbeit verwendet wird.
+	Dieses Kapitel beginnt mit einer Einführung in die Evolutionären Algorithmen und stellt daraus exemplarisch die Differentielle Evolution vor. Zum Schluss dieses Kapitels folgt eine Einbindung der Differentiellen Evolution in den Kontext der Segmentierung.
 
 	\section{\gls{ea}}
 	\label{sec:evol}
@@ -40,13 +40,7 @@
 	\section{\gls{de}}
 	\label{sec:de}
 
-		Die Autoren in \cite{storn-price-de} entwickelten diese Methode mit 
-		Hinblick auf die im Anschluss gelisteten Anforderungen\footnote{Diese 
-		Anforderungen sind zwar in \cite{storn-price-de} lediglich auf 
-		Minimierungsprobleme beschränkt, da solche in der Praxis häufiger 
-		vorkommen. Allerdings sind sie auf Maximierungsprobleme ebenso 
-		anwendbar.}
-		an ein in der Praxis anwendbares Optimierungsverfahren:
+		Die Autoren in \cite{storn-price-de} entwickelten diese Methode mit Hinblick auf die im Anschluss gelisteten Anforderungen an ein in der Praxis anwendbares Optimierungsverfahren:
 		\begin{enumerate}
 			\item Es soll mit nicht-differenzierbaren und nicht-linearen 
 			Funktionen, die unter Umständen mehrere (lokale) Maxima/Minima 
@@ -64,58 +58,37 @@
 		oben genannten Bedingungen zu erfüllen, den Wahrheitsgehalt dieser 
 		Aussage zu prüfen soll jedoch nicht Aufgabe der hier vorliegenden 
 		Arbeit sein. Hier liegt der Fokus primär auf der Anwendung des 
-		Verfahrens mit der Annahme, die vorangestellte Aussage sei wahr. 
+		Verfahrens mit der Annahme, die vorangestellte Aussage sei wahr.\\
 		
-		Die Grundstruktur von \gls{de} lässt sich aus Abbildung 
-		\ref{fig:ea-flowchart} ablesen, jedoch muss für eine detaillierte 
-		Beschreibung der Idee hinter \gls{de} zunächst folgendes gegeben sein - 
-		Definition nach \cite{storn-price-de}:
-		\color{red} [Aufzählung durch Pseudocode ersethen mit algorithm-Umgebung] \color{black}
-		\begin{itemize}
-			\item eine zu optimierende Funktion $f(x_{1}, x_{2}, ... , x_{D})$ - die \textit{Fitnessfunktion}
-			\item eine Population bestehend aus $N_{p}$ $D$-dimensionalen Vektoren $x_{i, g}$, wobei gilt:
-			\begin{itemize}
-				\item $N_{p}$ ist die Populationsgröße
-				\item $D$ entspricht der Anzahl von Parametern für die Fitnessfunktion
-				\item $i \in [0,1,2, ... , N_{p}]$
-				\item $g$ stellt die Generation der Population dar
-			\end{itemize}
-			\item der reelle Mutationsfaktor $F \in (0,2]$
-			\item die Crossover-Konstante $C_{r} \in (0,1]$
-			\item eine maximale Anzahl an Generationen $G$
-		\end{itemize}
+		Der nachstehende Pseudocode beschreibt die substanzielle Idee hinter \gls{de} in etwas vereinfachter Form \cite{storn-price-de}:
 		
-		%\subsection{Varianten von \gls{de}}
-		%\label{sec:de-variants}
-		
-		Es gibt unterschiedliche Varianten des \gls{de}-Algorithmus, die 
-		gewählt werden können und nach folgendem Schema notiert werden: 
-		\textit{\gls{de}/x/y/z} mit den nachstehenden Bedeutungen für x, y 
-		und z:
-		\begin{itemize}
-			\item x gibt an, der Vektor der Population bei der 
-			Mutationsoperation verändert wird. Dies kann entweder ein 
-			zufälliger Vektor sein (\textit{rand}) oder derjenige mit dem 
-			niedrigsten/höchsten Ergebnis bei Auswertung mit der 
-			Fitnessfunktion (\textit{best}).
-			\item y entspricht der Anzahl von Differenzvektoren bei der 
-			Mutation (in der Regel 1 oder 2).
-			\item mit z wird das Crossover-Schema ausgewählt. Üblicherweise 
-			wird \textit{bin} verwendet, aber es existieren - wie in 
-			\mbox{\cite[Seiten 93-97]{storn-price-de-book}} dokumentiert - 
-			einige weitere Schemata - als Beispiel ist hier \textit{exp} zu 
-			nennen. Der Sinn hinter diesen Bezeichnungen wird in Paragraph 
-			\ref{sec:de-crossover} deutlich.
-		\end{itemize}
-		Nach diesem Muster wird die in \cite[Seite 47]{storn-price-de-book} 
-		als \textit{klassischer} DE-Algorithmus benannte Art als 
-		\textit{\gls{de}/rand/1/bin} geschrieben.\\
-		
-		Mit allen oben stehenden Informationen, lassen sich nachfolgend die 
-		einzelnen Operationen des Algorithmus definieren, die zum großen 
-		Teil der Abbildung \ref{fig:ea-flowchart} entnommen werden können - und 
-		zwar so, wie sie in \cite{storn-price-de, storn-price-de-book} 
-		beschrieben sind.
+		\begin{algorithm*}[H]
+			\SetAlgoLined
+			...\\
+			\While{convergence criterion not yet met}{
+				//---$x_{i}$ defines a vector of the current vector population-------\\
+				//---$y_{i}$ defines a vector of the new vector population-----------\\
+				for ($i=0$; $i<N_{p}$; i++) \{\\
+				\begin{tabbing}
+					Links \= Mitte \= Rechts \kill
+					\>$r_{1} = rand(N_{p});$ //select a random index from $1, 2, ..., N_{p}$\\
+					\>$r_{2} = rand(N_{p});$ //select a random index from $1, 2, ..., N_{p}$\\
+					\>$r_{3} = rand(N_{p});$ //select a random index from $1, 2, ..., N_{p}$\\
+					\>\textbf{$u_{i} = x_{r_{3}} + F * (x_{r_{1}} - x_{r_{2}})$};\\
+					\>\textbf{if} $f(u_{i}) \leq f(x_{i})$  \textbf{then} \{\\
+						\>\>$y_{i} = u_{i};$\\
+					\>\} \textbf{else} \{\\
+						\>\>$y_{i} = x_{i};$\\
+					\>\}\\
+					\}
+				\end{tabbing}
+			}
+			...
+		\end{algorithm*}
+	
+		mit $N_{p}$ für die Größe der Population stehend.\\
+		Mit der Zeit haben sich unterschiedliche Varianten von \gls{de} herausgebildet. Die gängige Notation hierfür folgt dem Schema \textit{\gls{de}/x/y/z}, wobei sich die Bedeutung der Variablen x, y und z im Verlauf der nachfolgenden detaillierten Beschreibung der einzelnen Operationen in \gls{de} an geeigneter Stelle erschließen werden \cite{storn-price-de, storn-price-de-book}. 
+		%\vfill
 		
 		\subsection{Initialisierung}
 		\label{sec:de-init}

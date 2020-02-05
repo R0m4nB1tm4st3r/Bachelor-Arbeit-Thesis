@@ -1,8 +1,7 @@
 \chapter{Die Problemstellung}
 \label{sec:prob}
 	
-	Dieses Kapitel soll eine grobe Einführung in die Thematiken Bildverarbeitung und \gls{ocr} bieten und ferner die Motivation für diese Arbeit im Zusammenhang mit der Segmentierung von Bildern aufzeigen. Bei alledem werden auch mögliche Schwierigkeiten bei diesem Vorgang mit in den Blick genommen.
-	
+	Dieses Kapitel soll eine grobe Einführung in die Thematiken Bildverarbeitung und \gls{ocr} bieten und ferner die Motivation für diese Arbeit im Zusammenhang mit der Segmentierung von Bildern aufzeigen.
 	\section{Grundlegendes über Bildverarbeitung}
 	\label{sec:bild-basics}
 	
@@ -33,9 +32,9 @@
 			\label{fig:ocr-system}
 		\end{figure}
 		
-		Einen in der heutigen Zeit zentralen Anwendungsfall für die (industrielle) Bildverarbeitung stellt \gls{ocr} dar. Wie der Name bereits vermuten lässt, ist das Ziel der \gls{ocr}, Zeichen oder Formen aus digitalen Bildern zu extrahieren und weiterzuverarbeiten. Dieser Vorgang lässt sich in vier Phasen unterteilen (blau gefärbte Rechtecke in Abbildung \ref{fig:ocr-system}): Während der \textbf{Layout Analysis} wird das noch rohe Bild so bearbeitet, dass lediglich der relevante Bereich mit der zu lesenden Information zu sehen ist. Anschließend wird das Bild beim \textbf{Pre-Processing} gegebenenfalls von Störeffekten wie Rauschen oder Artefakten befreit, welche die Erfolgschance in der nächsten Phase mindern. Darauf aufbauend geschieht in der nun folgenden \textbf{Character Recognition} die eigentliche Zeichenerkennung. Hier findet sich auch die Segmentierung wieder, die für eine erfolgreiche Zeichenerkennung von elementarer Bedeutung sowie ein zentraler Bestandteil dieser Arbeit ist. Schließlich erfolgt im Zuge des \textbf{Post-Processing} eine Validierung des zuvor gelesenen Textes und eventuell eine weitere Verarbeitung der gewonnenen Information. Schon in den frühen 1950ern haben Forscher nach Möglichkeiten gesucht, auf Papier befindlichen Text mit Hilfe von Rechnerkapazitäten einzulesen, um dem Menschen die mühselige Arbeit des manuellen Abtippens von Dokumenten abzunehmen \cite{cher-et-al-ocr}.\\
+		Einen in der heutigen Zeit zentralen Anwendungsfall für die (industrielle) Bildverarbeitung stellt \gls{ocr} dar. Wie der Name bereits vermuten lässt, ist das Ziel der \gls{ocr}, Zeichen oder Formen aus digitalen Bildern zu extrahieren und weiterzuverarbeiten. Schon in den frühen 1950ern haben Forscher nach Möglichkeiten gesucht, auf Papier befindlichen Text mit Hilfe von Rechnerkapazitäten einzulesen, um dem Menschen die mühselige Arbeit des manuellen Abtippens von Dokumenten abzunehmen \cite{cher-et-al-ocr}.Dieser Vorgang lässt sich in vier Phasen unterteilen (blau gefärbte Rechtecke in Abbildung \ref{fig:ocr-system}): Während der \textbf{Layout Analysis} wird das noch rohe Bild so bearbeitet, dass lediglich der relevante Bereich mit der zu lesenden Information zu sehen ist. Anschließend wird das Bild beim \textbf{Pre-Processing} gegebenenfalls von Störeffekten wie Rauschen oder Artefakten befreit, welche die Erfolgschance in der nächsten Phase mindern. Darauf aufbauend geschieht in der nun folgenden \textbf{Character Recognition} die eigentliche Zeichenerkennung. Hier findet sich auch die Segmentierung wieder, die für eine erfolgreiche Zeichenerkennung von elementarer Bedeutung sowie ein zentraler Bestandteil dieser Arbeit ist. Schließlich erfolgt im Zuge des \textbf{Post-Processing} eine Validierung des zuvor gelesenen Textes und eventuell eine weitere Verarbeitung der gewonnenen Information. \\
 		
-		Wie im obigen Absatz bereits festgehalten, kann eine erfolgreiche Zeichenerkennung ohne eine gute Segmentierung nicht funktionieren. In Abbildung \ref{fig:seg-example-good} lässt sich an einem Beispiel betrachten, was die Segmentierung eines Bildes bewirkt, wobei dies ein Beispiel für eine gute Segmentierung ist - also eine Segmentierung, nach der der Text im Bild korrekt und vollständig gelesen werden konnte:
+		Wie im obigen Absatz bereits festgehalten, kann eine erfolgreiche Zeichenerkennung ohne eine gute Segmentierung nicht funktionieren. In Abbildung \ref{fig:seg-example-good} lässt sich an einem Beispiel betrachten, was die Segmentierung eines Bildes bewirkt, wobei dies ein Beispiel für eine erfolgreiche Segmentierung ist:
 		\begin{figure}[H]
 			\centering
 			\subfloat[][unsegmentiertes OriginalBild]{\includegraphics[width=0.48\linewidth]{IMG_3909245}}
@@ -44,7 +43,7 @@
 			\caption{Segmentierung an einem Beispiel (Einteilung in zwei Klassen) - gutes Beispiel}
 			\label{fig:seg-example-good}
 		\end{figure}
-		Dem gegenübergestellt wird ein Exempel einer schlechten Segmentierung in Abbildung \ref{fig:seg-example-bad}:
+		Dem gegenübergestellt wird ein Exempel einer erfolglosen Segmentierung in Abbildung \ref{fig:seg-example-bad}:
 		\begin{figure}[H]
 			\centering
 			\subfloat[][unsegmentiertes OriginalBild]{\includegraphics[width=0.48\linewidth]{IMG_3909236}}
@@ -54,80 +53,81 @@
 			\label{fig:seg-example-bad}
 		\end{figure}
 		Wie auf Abbildung \ref{fig:seg-example-bad}b zu erkennen ist, werden zu viele Pixel in der Umgebung des ersten und letzten Zeichens schwarz gefärbt, was die Konturen dieser beinahe verschwinden lässt. Zwar kann sich mit dem menschlichen Auge der Text noch erkannt werden, aber für eine Maschine wird es aus diesem Bild unmöglich, den darauf befindlichen Text zu lesen.\\
-		Aus der bereits langjährigen Geschichte der \gls{ocr} können inzwischen zahlreiche Arten gefunden werden, um eine Segmentierung zu realisieren. Diese sind in drei Gruppen unterteilbar \cite[Kapitel 10]{gonzalez-woods}: \textit{Thresholding}, \textit{Edge-Based-Segmentation} und \textit{Region-Based-Segmentation}. Sowohl aus erstgenannter als auch aus letztgenannter Gruppe von Segmentierungsmethoden wird jeweils ein möglicher Ansatz in den Paragraphen \ref{sec:meth1} und \ref{sec:meth2} eingehend vorgestellt sowie im weiteren Verlauf dieser Arbeit zur Generierung der Ergebnisse in Kapitel \ref{sec:results} herangezogen. \\
-		%Allen Methoden ist gemein, dass im Vorfeld festgelegt werden muss, in wie viele Klassen $K$ das Bild eingeteilt werden soll. 
+		Aus der bereits langjährigen Geschichte der \gls{ocr} können inzwischen zahlreiche Arten gefunden werden, um eine Segmentierung zu realisieren. Diese sind in drei Gruppen unterteilbar \cite[Kapitel 10]{gonzalez-woods}: \textit{Thresholding}, \textit{Edge-Based-Segmentation} und \textit{Region-Based-Segmentation}. Sowohl aus erstgenannter als auch aus letztgenannter Gruppe von Segmentierungsmethoden wird jeweils ein Modellansatz in den Paragraphen \ref{sec:meth1} und \ref{sec:meth2} eingehend vorgestellt sowie im weiteren Verlauf dieser Arbeit zur Generierung der Ergebnisse in Kapitel \ref{sec:results} herangezogen. \\
 		
-	\subsection{Modell 1: Gaußsche Annäherung an das Histogramm}
-	\label{sec:meth1}
-		
-		Dieses Vorgehen aus der Gruppe der \textit{Thresholding}-Methoden basiert auf der Arbeit von Erik Cuevas und seinen Kollegen \cite{cuevas-meth1} und zielt darauf ab, das Histogramm eines Bildes mittels einer Summe von Gaußschen Wahrscheinlichkeitsfunktionen zu approximieren und den Fehler zwischen diesen beiden Funktionen zu minimieren.
-		
-		Unter der Annahme, dass ein Graustufenbild vorliegt - also die in Abschnitt \ref{sec:bild-basics} erwähnte Bildfunktion $f(x,y)$ einen Wert im Intervall $[0, ..., L-1]$ zurückliefert, mit $L = $ Anzahl der Graustufen - ergibt sich das Histogramm eines Bildes nach Gleichung \ref{eq:histogram} zu
-		\begin{flalign}
-			\centering
-			h(g) &= \frac{n_{g}}{N} \label{eq:histogram}
-		\end{flalign}
-		dabei steht $n_{g}$ für die Anzahl an Pixel mit der Graustufe $g$, während $N$ die Gesamtzahl aller Pixel im Bild repräsentiert.\\
-		Dieses Histogramm kann dann näherungsweise über die Summe von Gaußschen Wahrscheinlichkeitsdichtefunktionen, wie in Gleichung \ref{eq:gauss-sum} dargestellt, angegeben werden:
-		\begin{flalign}
-			\centering
-			p(x) = \sum_{i=1}^{K} P_{i} \cdot p_{i}(x) \quad \textrm{mit} \quad p_{i}(x) = \frac{1}{\sigma_{i}\sqrt{2\pi}} \exp\left(-\frac{1}{2} \cdot \left(\frac{x - \mu_{i}}{\sigma_{i}}\right)^{2}\right), \label{eq:gauss-sum}
-		\end{flalign}
-		unter der Voraussetzung, dass $K$ die Anzahl der Klassen, in die das Bild aufgeteilt werden soll, und $P_{i}$ die Wahrscheinlichkeit dafür darstellt, dass ein zufällig gewählter Grauwert $x$ innerhalb der Klasse $i$ liegt. Weiterhin ist $p_{i}(x)$ die der Klasse $i$ zugehörige Komponente der Approximation $p(x)$ in Form einer Gaußschen Dichtefunktion, jedoch wurde die Formel aus \cite{papula-gauss} entnommen, da die Darstellung in \cite{cuevas-meth1} fehlerhaft ist (das $\sigma_{i}$ im ersten Bruch befindet sich innerhalb der Quadratwurzel). Zusätzlich ist $\sigma_{i}$ als Standardabweichung und $\mu_{i}$ als Mittelwert angegeben.\\
-		Nun sind die Parameter $\sigma_{i}$, $\mu_{i}$ und $P_{i}$ mit $i = 1, ..., K$ so zu bestimmen, dass nachstehendes Problem
-		\begin{flalign}
-			\centering
-			\underset{P_{i}, \mu_{i}, \sigma_{i}}{arg \ min} \ E \quad \textrm{mit } E = \frac{1}{n} \sum_{j=1}^{n}[p(x_{j}) - h(x_{j})]^{2} + \omega \cdot \left| \left( \sum_{i=1}^{K} P_{i} \right) - 1 \right| \label{eq:mean-square-error}
-		\end{flalign}
-		gelöst wird - ausgehend von der Graustufenanzahl $n$ und dem Penalty-Faktor $\omega$, der sich genau dann auswirkt, wenn die Bedingung $\sum_{i=1}^{K} P_{i} = 1$ nicht erfüllt ist.\\
-		Die Minimierung einer solchen Funktion erweist sich laut \cite{cuevas-meth1} als ein komplexes Problem. Eine analytische Lösung erfordert, wie in \cite[S. 248-250]{papula-optimization} anschaulich dargelegt, die jeweiligen partiellen Differentiationen der Funktion in Gleichung \ref{eq:mean-square-error} nach den Parametern $\sigma_{i}$, $\mu_{i}$ und $P_{i}$ zu bestimmen und gleich Null zu setzen. Dies führt auf ein Gleichungssystem mit $3K$ Unbekannten und $3K$ Gleichungen der Form
-		\begin{flalign*}
-			\textrm{\color{red} Formeln für partielle Ableitungen hier einfügen}
-		\end{flalign*}
-		Nach den in \cite[S. 26]{papula-alg-eq} aufgestellten Kriterien für die Linearität eines Gleichungssystems ist obiges ein \textit{nichtlineares} Gleichungssystem und somit analytisch bestenfalls mit erheblichem Aufwand lösbar \color{red}[muss noch belegt werden]\color{black}. In solchen Fällen wird dann ein numerisches Verfahren zur Approximation einer Lösung in annehmbarer Zeit herangezogen, beispielsweise jenes, das in Abschnitt \ref{sec:de} behandelt wird. 
-		
-		Im Folgenden soll zur weiteren Erläuterung des Modells davon ausgegangen werden, dass die Kenngrößen $\sigma_{i}$, $\mu_{i}$ und $P_{i}$ im Sinne von Gleichung \ref{eq:mean-square-error} bereits ermittelt wurden. \\
-		Der letzte Schritt, um hieraus schließlich die Threshold-Werte $T_{1}, ... , T_{K-1}$ zu erhalten, führt über die Lösung der folgenden quadratischen Gleichung:
-		\begin{flalign}
-			AT_{i^{2}} + BT_{i} + C &= 0 \label{eq:quad-eq-thresh}
-		\end{flalign}
-		mit den Koeffizienten
-		\begin{flalign}
-			A &= \sigma_{i}^{2} - \sigma_{i+1}^{2}, \notag \\
-			B &= 2 \cdot (\mu_{i}\sigma_{i+1}^{2} - \mu_{i+1}\sigma_{i}^{2}), \notag \\
-			C &= (\sigma_{i}\mu_{i+1})^{2} - (\sigma_{i+1}\mu_{i})^{2} + 2 \cdot (\sigma_{i}\sigma_{i+1})^{2} \cdot \ln \left(\frac{\sigma_{i+1}P_{i}}{\sigma_{i}P_{i+1}}\right) \notag
-		\end{flalign}
-		Wie sich diese im Einzelnen zusammensetzen, soll an dieser Stelle nicht erläutert werden, lässt sich jedoch bei \cite[S. 13+14]{cuevas-meth1} nachlesen.
-		
-		Anhand der so ermittelten Threshold-Werte werden nun alle Pixel des Bildes mittels untenstehender Gleichung aus \cite[S. 739]{gonzalez-woods} zugeordnet:
-		\begin{flalign}
-			\centering
-			g(x, y) = 
-			\begin{cases}
-				a_{1} & \textrm{if } f(x, y) > T_{K-1}\\
-				a_{2} & \textrm{if } T_{K-2} < f(x, y) \leq T_{K-1}\\
-				... \\
-				a_{K} & \textrm{if } f(x, y) \leq T_{1}
-			\end{cases}
-			\label{eq:threshold}
-		\end{flalign}
-		Dabei sind $a_{1}, ..., a_{K}$ voneinander unterschiedliche Graustufenwerte.
-	
-	\subsection{Modell 2: K-Means}
-	\label{sec:meth2}
-	
-		Der K-Means-Algorithmus wurde 1967 von James B. MacQueen \cite{macqueen-kmeans} vorgestellt und wird heute noch häufig zur Gruppierung großer Datenmengen eingesetzt - so in \cite{kmeans-info} zu lesen.\\
-		Die grundlegende Idee hinter K-Means besteht in der Generierung von Mittelpunkten als Repräsentanten für verschiedene Bereiche in einem Datensatz. Formal ausgedrückt bedeutet dies - mit fortlaufendem Bezug auf \cite{mozdren-meth2}:
-		\begin{definition}
-			\label{def:kmeans1}
-			Gegeben sei eine Folge von Messpunkten $x_{j} \in \mathbb{R}^{d},$ $j \in [1,n]$, wobei $n$ gleich der Anzahl der Messpunkte ist und $d$ für die Dimension dieser steht. Dann existiert eine Segmentierung $S = \{S_{1}, ..., S_{K}\}$ mit den für die einzelnen Segmenten $S_{i}$ stellvertretenden Mittelpunkten $\{\mu_{i}, ..., \mu_{K}\}$, die der Lösung des anschließenden Problems genügt:
+		Um der Vollständigkeit genüge zu tun, sei an dieser Stelle die Segmentierungsmethode nach Otsu erwähnt, die in der heutigen industriellen Bildverarbeitung noch Anwendung findet. Hierbei wird das Thresholding-Problem aus der statistischen Sicht betrachtet, mit dem Ziel, den durchschnittlichen Fehler durch das Zuteilen eines Pixels zu zwei oder mehreren Klassen zu minimieren. \color{red} [Fortsetzung folgt] \color{black}
+
+		\subsection{Modell 1: Gaußsche Annäherung an das Histogramm}
+		\label{sec:meth1}
+			
+			Dieses Vorgehen aus der Gruppe der \textit{Thresholding}-Methoden basiert auf der Arbeit von Erik Cuevas und seinen Kollegen \cite{cuevas-meth1} und zielt darauf ab, das Histogramm eines Bildes mittels einer Summe von Gaußschen Wahrscheinlichkeitsfunktionen zu approximieren und den Fehler zwischen diesen beiden Funktionen zu minimieren.
+			
+			Unter der Annahme, dass ein Graustufenbild vorliegt - also die in Abschnitt \ref{sec:bild-basics} erwähnte Bildfunktion $f(x,y)$ einen Wert im Intervall $[0, ..., L-1]$ zurückliefert, mit $L = $ Anzahl der Graustufen - ergibt sich das Histogramm eines Bildes nach Gleichung \ref{eq:histogram} zu
 			\begin{flalign}
 				\centering
-				\underset{S}{arg \ min} \sum_{i=1}^{K} \sum_{x_{j} \in S_{i}}\left|\left|x_{j} - \mu_{i}\right|\right|^{2}
+				h(g) &= \frac{n_{g}}{N} \label{eq:histogram}
 			\end{flalign}
-		\end{definition}
-		Dabei erfolgt die Eruierung der Mittelpunkte in zwei Schritten:\\
-		Im \textit{Assignment-Step} werden die Datenpunkte den jeweiligen Segmenten nach folgender Vorschrift zugewiesen:
-		\begin{flalign}
-			S_{i}^{(t)} = \left\{ x_{a} : \left|\left|x_{a} - \mu_{i}^{(t)}\right|\right|^{2} \leq \left|\left|x_{a} - \mu_{j^{(t)}}\right|\right|^{2} \forall j \in \{1, ..., K\} \textbackslash \{i\}  \right\}
-		\end{flalign}
+			dabei steht $n_{g}$ für die Anzahl an Pixel mit der Graustufe $g$, während $N$ die Gesamtzahl aller Pixel im Bild repräsentiert.\\
+			Dieses Histogramm kann dann näherungsweise über die Summe von Gaußschen Wahrscheinlichkeitsdichtefunktionen, wie in Gleichung \ref{eq:gauss-sum} dargestellt, angegeben werden:
+			\begin{flalign}
+				\centering
+				p(x) = \sum_{i=1}^{K} P_{i} \cdot p_{i}(x) \quad \textrm{mit} \quad p_{i}(x) = \frac{1}{\sigma_{i}\sqrt{2\pi}} \exp\left(-\frac{1}{2} \cdot \left(\frac{x - \mu_{i}}{\sigma_{i}}\right)^{2}\right), \label{eq:gauss-sum}
+			\end{flalign}
+			unter der Voraussetzung, dass $K$ die Anzahl der Klassen, in die das Bild aufgeteilt werden soll, und $P_{i}$ die Wahrscheinlichkeit dafür darstellt, dass ein zufällig gewählter Grauwert $x$ innerhalb der Klasse $i$ liegt. Weiterhin ist $p_{i}(x)$ die der Klasse $i$ zugehörige Komponente der Approximation $p(x)$ in Form einer Gaußschen Dichtefunktion, jedoch wurde die Formel aus \cite{papula-gauss} entnommen, da die Darstellung in \cite{cuevas-meth1} fehlerhaft ist (das $\sigma_{i}$ im ersten Bruch befindet sich innerhalb der Quadratwurzel). Zusätzlich ist $\sigma_{i}$ als Standardabweichung und $\mu_{i}$ als Mittelwert angegeben.\\
+			Nun sind die Parameter $\sigma_{i}$, $\mu_{i}$ und $P_{i}$ mit $i = 1, ..., K$ so zu bestimmen, dass nachstehendes Problem
+			\begin{flalign}
+				\centering
+				\underset{P_{i}, \mu_{i}, \sigma_{i}}{arg \ min} \ E \quad \textrm{mit } E = \frac{1}{n} \sum_{j=1}^{n}[p(x_{j}) - h(x_{j})]^{2} + \omega \cdot \left| \left( \sum_{i=1}^{K} P_{i} \right) - 1 \right| \label{eq:mean-square-error}
+			\end{flalign}
+			gelöst wird - ausgehend von der Graustufenanzahl $n$ und dem Penalty-Faktor $\omega$, der sich genau dann auswirkt, wenn die Bedingung $\sum_{i=1}^{K} P_{i} = 1$ nicht erfüllt ist.\\
+			Die Minimierung einer solchen Funktion erweist sich laut \cite{cuevas-meth1} als ein komplexes Problem. Eine analytische Lösung erfordert, wie in \cite[S. 248-250]{papula-optimization} anschaulich dargelegt, die jeweiligen partiellen Differentiationen der Funktion in Gleichung \ref{eq:mean-square-error} nach den Parametern $\sigma_{i}$, $\mu_{i}$ und $P_{i}$ zu bestimmen und gleich Null zu setzen. Dies führt auf ein Gleichungssystem mit $3K$ Unbekannten und $3K$ Gleichungen der Form
+			\begin{flalign*}
+				E_{\sigma_{l}} &= \frac{\partial E}{\partial \sigma_{l}}, & E_{\mu_{l}} &= \frac{\partial E}{\partial \mu_{l}}, & E_{P_{l}} &= \frac{\partial E}{\partial P_{l}}, & l &= 1, ..., K
+			\end{flalign*}
+			Nach den in \cite[S. 26]{papula-alg-eq} aufgestellten Kriterien für die Linearität eines Gleichungssystems ist obiges ein \textit{nichtlineares} Gleichungssystem und somit analytisch bestenfalls mit erheblichem Aufwand lösbar \color{red}[muss noch belegt werden]\color{black}. In solchen Fällen wird dann ein numerisches Verfahren zur Approximation einer Lösung in annehmbarer Zeit herangezogen, beispielsweise jenes, das in Abschnitt \ref{sec:de} behandelt wird. 
+			
+			Im Folgenden soll zur weiteren Erläuterung des Modells davon ausgegangen werden, dass die Kenngrößen $\sigma_{i}$, $\mu_{i}$ und $P_{i}$ im Sinne von Gleichung \ref{eq:mean-square-error} bereits ermittelt wurden. \\
+			Der letzte Schritt, um hieraus schließlich die Threshold-Werte $T_{1}, ... , T_{K-1}$ zu erhalten, führt über die Lösung der folgenden quadratischen Gleichung:
+			\begin{flalign}
+				AT_{i^{2}} + BT_{i} + C &= 0 \label{eq:quad-eq-thresh}
+			\end{flalign}
+			mit den Koeffizienten
+			\begin{flalign}
+				A &= \sigma_{i}^{2} - \sigma_{i+1}^{2}, \notag \\
+				B &= 2 \cdot (\mu_{i}\sigma_{i+1}^{2} - \mu_{i+1}\sigma_{i}^{2}), \notag \\
+				C &= (\sigma_{i}\mu_{i+1})^{2} - (\sigma_{i+1}\mu_{i})^{2} + 2 \cdot (\sigma_{i}\sigma_{i+1})^{2} \cdot \ln \left(\frac{\sigma_{i+1}P_{i}}{\sigma_{i}P_{i+1}}\right) \notag
+			\end{flalign}
+			Wie sich diese im Einzelnen zusammensetzen, soll an dieser Stelle nicht erläutert werden, lässt sich jedoch bei \cite[S. 13+14]{cuevas-meth1} nachlesen.
+			
+			Anhand der so ermittelten Threshold-Werte werden nun alle Pixel des Bildes mittels untenstehender Gleichung aus \cite[S. 739]{gonzalez-woods} zugeordnet:
+			\begin{flalign}
+				\centering
+				g(x, y) = 
+				\begin{cases}
+					a_{1} & \textrm{if } f(x, y) > T_{K-1}\\
+					a_{2} & \textrm{if } T_{K-2} < f(x, y) \leq T_{K-1}\\
+					... \\
+					a_{K} & \textrm{if } f(x, y) \leq T_{1}
+				\end{cases}
+				\label{eq:threshold}
+			\end{flalign}
+			Dabei sind $a_{1}, ..., a_{K}$ voneinander unterschiedliche Graustufenwerte.
+	
+		\subsection{Modell 2: K-Means}
+		\label{sec:meth2}
+		
+			Der K-Means-Algorithmus wurde 1967 von James B. MacQueen \cite{macqueen-kmeans} vorgestellt und wird heute noch häufig zur Gruppierung großer Datenmengen eingesetzt - so in \cite{kmeans-info} zu lesen.\\
+			Die grundlegende Idee hinter K-Means besteht in der Generierung von Mittelpunkten als Repräsentanten für verschiedene Bereiche in einem Datensatz. Formal ausgedrückt bedeutet dies \cite{mozdren-meth2}: \\
+			Gegeben sei eine Folge von Messpunkten $x_{j} \in \mathbb{R}^{d},$ $j \in [1,n]$, wobei $n$ gleich der Anzahl der Messpunkte ist und $d$ für die Dimension dieser steht. Dann existiert eine Segmentierung $S = \{S_{1}, ..., S_{K}\}$ mit den für die einzelnen Segmenten $S_{i}$ stellvertretenden Mittelpunkten $\{\mu_{i}, ..., \mu_{K}\}$, die der Lösung des anschließenden Problems \ref{eq:kmeans-min} genügt:
+			\begin{flalign}
+				\centering
+				\underset{S}{arg \ min} \sum_{i=1}^{K} \sum_{x_{j} \in S_{i}}\left|\left|x_{j} - \mu_{i}\right|\right|^{2}, \quad \left|\left|x_{j} - \mu_{i}\right|\right|^{2} = \textrm{euklid. Distanz zwischen } x_{j} \textrm{ und } \mu_{i}
+				\label{eq:kmeans-min}
+			\end{flalign}
+			Dabei erfolgt die Eruierung der Mittelpunkte in zwei Schritten:\\
+			Im \textit{Assignment-Step} (Gleichung \ref{eq:kmeans-assign}) werden die Datenpunkte den jeweiligen Segmenten. Daraufhin ergeben sich im \textit{Update-Step} (Gleichung \ref{eq:kmeans-update}) die neuen Mittelpunkte aus den arithmetischen Mittelwerten innerhalb der Segmente:
+			\begin{flalign}
+				S_{i}^{(t)} &= \left\{ x_{a} : \left|\left|x_{a} - \mu_{i}^{(t)}\right|\right|^{2} \leq \left|\left|x_{a} - \mu_{j^{(t)}}\right|\right|^{2} \forall j \in \{1, ..., K\} \textbackslash \{i\}  \right\} \label{eq:kmeans-assign}\\
+				\mu_{i}^{(t+1)} &= \frac{1}{\left| S_{i}^{(t)} \right|} \sum_{x_{j} \in S_{i}^{(t)}} x_{j}, \label{eq:kmeans-update}
+			\end{flalign}
+			mit $t$ als aktueller Iterationsindex. Diese Abläufe werden wiederholt, bis die Mittelpunkte $\mu_{i}$ sich nicht weiter wesentlich ändern.
