@@ -60,7 +60,7 @@
 		Arbeit sein. Hier liegt der Fokus primär auf der Anwendung des 
 		Verfahrens mit der Annahme, die vorangestellte Aussage sei wahr.\\
 		
-		Der nachstehende Pseudocode beschreibt die substanzielle Idee hinter \gls{de} in etwas vereinfachter Form \cite{storn-price-de}:
+		Der nachstehende Pseudocode beschreibt die substanzielle Idee hinter \gls{de} in etwas vereinfachter Form \cite[S. 34]{storn-price-de-book}:\\
 		
 		\begin{algorithm*}[H]
 			\SetAlgoLined
@@ -68,6 +68,7 @@
 			\While{convergence criterion not yet met}{
 				//---$x_{i}$ defines a vector of the current vector population-------\\
 				//---$y_{i}$ defines a vector of the new vector population-----------\\
+				
 				for ($i=0$; $i<N_{p}$; i++) \{\\
 				\begin{tabbing}
 					Links \= Mitte \= Rechts \kill
@@ -87,72 +88,26 @@
 		\end{algorithm*}
 	
 		mit $N_{p}$ für die Größe der Population stehend.\\
-		Mit der Zeit haben sich unterschiedliche Varianten von \gls{de} herausgebildet. Die gängige Notation hierfür folgt dem Schema \textit{\gls{de}/x/y/z}, wobei sich die Bedeutung der Variablen x, y und z im Verlauf der nachfolgenden detaillierten Beschreibung der einzelnen Operationen in \gls{de} an geeigneter Stelle erschließen werden \cite{storn-price-de, storn-price-de-book}. 
+		Mit der Zeit haben sich unterschiedliche Varianten von \gls{de} herausgebildet. Die gängige Notation hierfür folgt dem Schema \textit{\gls{de}/x/y/z}, wobei sich die Bedeutung der Variablen x, y und z im Verlauf der nachfolgenden detaillierten Beschreibung der einzelnen Operationen in \gls{de} an geeigneter Stelle erschließen werden \cite{storn-price-de, storn-price-de-book}: 
 		%\vfill
 		
 		\subsection{Initialisierung}
 		\label{sec:de-init}
 		
-			Zunächst muss die initiale Population ($G = 0$) erzeugt werden - 
-			meist durch Befüllen der Parametervektoren $x_{i, 0}$ mit 
-			Zufallszahlen. Im Bezug auf diese Zufallszahlen sowie alle 
-			kommenden wird eine Gleichverteilung angenommen. In manchen Fällen 
-			ist eine vorläufige Lösung $x_{nom, 0}$ verfügbar - dann kann die 
-			Population durch Addieren zufälliger Abweichungen zu $x_{nom, 0}$ 
-			generiert werden. Die nachfolgenden Operationen werden so lange 
-			iteriert, bis die vorher festgelegte Anzahl an Generationen $G$ 
-			erreicht ist. \color{red} [Formel!!] \color{black}
+			Zunächst muss die initiale Population $P_{0}$ mit ihren Mitgliedsvektoren $x_{i, 0}$ erzeugt werden. Hier hat sich die Verwendung von gleich-verteilt angenommenen Zufallszahlen bewährt. Um den Bezug zur jeweiligen Anwendung herzustellen, müssen zu den zufälligen Werten sinnvolle Ober-und Untergrenzen $b_{j, U}$ und $b_{j, L}$ angegeben werden, sodass die Vektorelemente $x_{j, i, 0}$ nach folgendem Zusammenhang errechnet werden:
+			\begin{flalign}
+				x_{j, i, 0} = rand(0,1) \cdot (b_{j, U} - b_{j, L}) + b_{j, L}, \quad j = 1, 2, ..., Dim(x_{i, 0}) \label{eq:de-init}
+			\end{flalign}  
 			
 		\subsection{Mutation}
 		\label{sec:de-mutation}
 		
-			Für alle $x_{i, g}$ werden Mutantenvektoren $v_{i, g+1}$ gebildet. 
-			Hierfür gibt es unterschiedliche Rechenvorschriften, abhängig 
-			davon, die \gls{de}-Variante gewählt ist. Hierzu werden im 
-			Folgenden einige häufig vorkommende Beispiele dargelegt (die 
-			jeweils letzten Parameter werden in Paragraph 
-			\ref{sec:de-crossover} eingehender beleuchtet, da sie hier keine 
-			Auswirkungen zeigen):
-			\color{red} [Formel Formatierung anpassen] \color{black}
-			
-			{\Large
-				\setlength{\abovedisplayskip}{0pt}
-				\setlength{\abovedisplayshortskip}{0pt}
-				\begin{flalign}
-					\label{eq:mutation1}
-					&\textrm{\gls{de}/\textcolor{blue}{rand}/\textcolor{green}{1}/bin:}&v_{i,
-					 g+1} = \color{blue}x_{r_{1}, g} \color{black}+ 
-					F \cdot \color{green}(x_{r_{1}, g} - x_{r_{2}, g})&&
-				\end{flalign}
-			}%
-			{\Large
-				\setlength{\abovedisplayskip}{0pt}
-				\setlength{\abovedisplayshortskip}{0pt}
-				\begin{flalign}
-					\label{eq:mutation2}
-					&\textrm{\gls{de}/\textcolor{blue}{best}/\textcolor{green}{1}/bin:}&v_{i,
-					 g+1} &= \color{blue}x_{best, g} \color{black}+ 
-					F \cdot \color{green}(x_{r_{1}, g} - x_{r_{2}, g})&&
-				\end{flalign}
-			}%
-			{\Large
-				\setlength{\abovedisplayskip}{0pt}
-				\setlength{\abovedisplayshortskip}{0pt}
-				\begin{flalign}
-					\label{eq:mutation3}
-					&\textrm{\gls{de}/\textcolor{blue}{best}/\textcolor{green}{2}/exp:}&v_{i,
-					 g+1} &= \color{blue}x_{best, g} \color{black}+ 
-					F \cdot \color{green}((x_{r_{1}, g} + x_{r_{2}, g}) - 
-					(x_{r_{3}, g} + 
-					x_{r_{4}, g}))&&
-				\end{flalign}
-			}%
-			$\forall i \in [1,2, ..., N_{p}]$ mit $r_{1}$, $r_{2}$, $r_{3}$ und 
-			$r_{4}$ als zufällige, 
-			voneinander und auch von $i$ unterschiedliche Indices und 
-			\textit{best} als Index desjenigen Vektors der Generation g, 
-			der bei Auswertung mit der Fitnessfunktion den 
-			niedrigsten/höchsten Wert innerhalb der Population liefert.
+			Für alle $x_{i, g}$ werden Mutantenvektoren $v_{i, g}$ gebildet, indem zu einem ausgewählten Basisvektor aus der gegenwärtigen Population gemäß der Gleichung \ref{eq:de-mutation} die skalierte Differenz zweier zufällig gewählter Vektoren addiert wird: 
+			\begin{flalign}
+				v_{i, g} = x_{r_{0}} + F \cdot (x_{r_{1}, g}) \label{eq:de-mutation}
+			\end{flalign}
+			Der Faktor $F \in (0,\infty($ beeinflusst die Rate der Mutation. Theoretisch gibt es für $F$ keine obere Schranke, aber in der Praxis haben sich Werte im Bereich $(0,2)$ bewährt.\\
+			Für die Auswahl des Index $r_{0}$ gibt es unterschiedliche Möglichkeiten
 			
 		\subsection{Crossover}
 		\label{sec:de-crossover}
@@ -169,7 +124,3 @@
 		\subsection{Selektion}
 		\label{sec:de-selection}
 		\color{red} [Formel!!] \color{black}
-			
-			
-	\section{Die Testumgebung}
-	\label{sec:testsetting}
