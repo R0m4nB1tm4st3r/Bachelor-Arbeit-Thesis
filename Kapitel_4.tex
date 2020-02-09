@@ -7,15 +7,27 @@
 	
 		\subsection{Auswahl an Bildmaterial}
 		\label{sub:choice-of-images}
-			Zur Evaluierung der Differenziellen Evolution werden insgesamt 30 Bilder herangezogen. Davon weisen 15 Bilder einen lasergravierten Zeichencode wie in Abbildung \ref{fig:example-code}a auf, während die restlichen 15 Bilder einen gestempelten Code nach dem Muster aus \ref{fig:example-code}b vorweisen. Jedes Bild wird dabei zweimal ausgewertet: einmal mit und einmal ohne Mittelwertfilter.\\
+			Zur Evaluierung der Differenziellen Evolution werden insgesamt 30 Bilder herangezogen. Davon weisen 15 Bilder einen laser gravierten Zeichencode wie in Abbildung \ref{fig:example-code}a auf, während die restlichen 15 Bilder einen gestempelten Code nach dem Muster aus \ref{fig:example-code}b vorweisen. Jedes Bild wird dabei zweimal ausgewertet: einmal mit und einmal ohne Mittelwertfilter.\\
 			Der Unterschied zwischen den jeweiligen Bildern ist in Abbildung \ref{fig:filter} wiedergegeben:
-			\begin{figure}
+			\begin{figure}[H]
 				\centering
+				\subfloat[][Bauteil mit gelasertem Code ohne Mittelwertfilter]{\includegraphics[width=0.48\linewidth]{IMG_01002DOKR5B_c}}
+				\quad
+				\subfloat[][Bauteil mit gelasertem Code mit Mittelwertfilter]{\includegraphics[width=0.48\linewidth]{IMG_01002DOKR5B_c}}
+				
+				\subfloat[][Bauteil mit gestempeltem Code ohne Mittelwertfilter]{\includegraphics[width=0.48\linewidth]{IMG_3909200}}
+				\quad
+				\subfloat[][Bauteil mit gestempeltem Code mit Mittelwertfilter]{\includegraphics[width=0.48\linewidth]{IMG_3909200-denoised}}
+				\caption{Unterschied zwischen Bildern ohne und Bildern mit Mittelwertfilter}
+				\label{fig:filter}
 			\end{figure}
 	
-		\subsection{Parameter-Wahl für Differenzielle Evolution}
+		\subsection{Parameter-Wahl}
 		\label{sub:de-params}
-	
+			Die einstellbaren Parameter für den implementierten Algorithmus der Differenziellen Evolution und die nachfolgende Segmentierung setzen sich wie folgt zusammen:\\
+			Die für den Algorithmus relevanten Parameter belaufen sich auf den Mutationsfaktor $F$, den Crossover-Faktor $C_{r}$ und die maximale Anzahl an Iterationen $G$. Im vorliegenden Test-Szenario wurden $F = 0.5$ und $C_{r} = 0.9$ gewählt. Den Parameter $G$ betreffend wurde eine Unterscheidung getroffen zwischen den Segmentierungsmodellen in den Abschnitten \ref{sec:meth1} und \ref{sec:meth2} respektive. Dementsprechend wurden mit dem Modell der Gaußschen Approximation vier Durchläufe mit $G \in \{100, 200, 500, 1000\}$ ausgeführt, wohingegen anhand des K-Means-Clustering-Modells wegen des deutlich erhöhten Rechenaufwandes im Vergleich mit der Gaußschen Approximation lediglich drei Ausführungssequenzen mit $G \in \{5, 10, 20\}$ absolviert wurden.\\
+			Daneben ist 
+
 	\section{Implementierung der Test-Applikation}
 	\label{sec:implementation}
 		\subsection{Workflow}
