@@ -25,8 +25,8 @@
 		\subsection{Parameter-Wahl}
 		\label{sub:de-params}
 			Die einstellbaren Parameter für den implementierten Algorithmus der Differenziellen Evolution und die nachfolgende Segmentierung setzen sich wie folgt zusammen:\\
-			Die für den Algorithmus relevanten Parameter belaufen sich auf den Mutationsfaktor $F$, den Crossover-Faktor $C_{r}$ und die maximale Anzahl an Iterationen $G$. Im vorliegenden Test-Szenario wurden $F = 0.5$ und $C_{r} = 0.9$ gewählt. Den Parameter $G$ betreffend wurde eine Unterscheidung getroffen zwischen den Segmentierungsmodellen in den Abschnitten \ref{sec:meth1} und \ref{sec:meth2} respektive. Dementsprechend wurden mit dem Modell der Gaußschen Approximation vier Durchläufe mit $G \in \{100, 200, 500, 1000\}$ ausgeführt, wohingegen anhand des K-Means-Clustering-Modells wegen des deutlich erhöhten Rechenaufwandes im Vergleich mit der Gaußschen Approximation lediglich drei Ausführungssequenzen mit $G \in \{5, 10, 20\}$ absolviert wurden.\\
-			Daneben ist 
+			Die für den Algorithmus relevanten Parameter belaufen sich auf den Mutationsfaktor $F$, den Crossover-Faktor $C_{r}$ und die maximale Anzahl an Iterationen $G$. Im vorliegenden Test-Szenario wurden $F = 0.5$ und $C_{r} = 0.9$ gewählt. Den Parameter $G$ betreffend wurde eine Unterscheidung getroffen zwischen den Segmentierungsmodellen in den Abschnitten \ref{sec:meth1} und \ref{sec:meth2} respektive. Dementsprechend wurden mit dem Modell der Gaußschen Approximation vier Durchläufe mit $G \in \{100, 200, 500, 1000\}$ ausgeführt, wohingegen anhand des K-Means-Clustering-Modells wegen des deutlich erhöhten Rechenaufwandes im Vergleich mit der Gaußschen Approximation lediglich vier Ausführungssequenzen mit $G \in \{5, 10, 20, 50\}$ absolviert wurden.\\
+			In dieser Konstellation werden die Tests für eine Segmentierung in $K$ Klassen mit $K \in \{2,3,4,5\}$ durchgeführt.
 
 	\section{Implementierung der Test-Applikation}
 	\label{sec:implementation}
@@ -38,8 +38,9 @@
 				\caption{Aktivitätsdiagramm des Ablaufs in der Test-Applikation}
 				\label{fig:diff-evol-activity}
 			\end{figure}
-			Aus Abbildung \ref{fig:diff-evol-activity} lassen sich die Abläufe entnehmen, die im während dieser Arbeit entwickelten Test-Programm abgehandelt werden.\\
-			Vor dem Programmstart müssen unter anderem 
+			Aus Abbildung \ref{fig:diff-evol-activity} lassen sich die Abläufe entnehmen, die im während dieser Arbeit entwickelten Test-Programm abgehandelt werden:\\
+			Vor dem Programmstart muss die Wahl der Bildquelle und des Segmentierungsmodells (künftig als \textit{Objective Function} bezeichnet) getroffen werden. Zusätzlich wird festgelegt, ob ein Mittelwertfilter angewendet werden soll. \\
+			Bei Programmstart werden sodann die entsprechenden Bilder geladen und gegebenenfalls mit dem Mittelwertfilter vorbehandelt. 
 	
 		\subsection{Wahl der Programmiersprache}
 		\label{sub:prog-lang}
