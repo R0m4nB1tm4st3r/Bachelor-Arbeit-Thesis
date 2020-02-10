@@ -34,21 +34,23 @@
 		\label{sub:workflow}
 			\begin{figure}[H]
 				\centering
-				\includegraphics[width=0.9\linewidth]{diff-evol-activity}
+				\includegraphics[width=\linewidth]{diff-evol-activity}
 				\caption{Aktivitätsdiagramm des Ablaufs in der Test-Applikation}
 				\label{fig:diff-evol-activity}
 			\end{figure}
 			Aus Abbildung \ref{fig:diff-evol-activity} lassen sich die Abläufe entnehmen, die im während dieser Arbeit entwickelten Test-Programm abgehandelt werden:\\
 			Vor dem Programmstart muss die Wahl der Bildquelle und des Segmentierungsmodells (künftig als \textit{Objective Function} bezeichnet) getroffen werden. Zusätzlich wird festgelegt, ob ein Mittelwertfilter angewendet werden soll. \\
-			Bei Programmstart werden sodann die entsprechenden Bilder geladen und gegebenenfalls mit dem Mittelwertfilter vorbehandelt. 
+			Bei Programmstart werden sodann die entsprechenden Bilder geladen und gegebenenfalls mit dem Mittelwertfilter vorbehandelt. Nach diesen Vorbereitungen wird für jedes geladene Bild die Population initialisiert und dem \gls{de}-Algorithmus übergeben. Dieser wird wiederum sukzessiv für jedes $G$, wie in Paragraph \ref{sub:de-params} beschrieben, aufgerufen. Mit dem Ergebnis aus jedem Durchlauf wird dann eine Segmentierung des Bildes anhand der zuvor gewählten \textit{Objective Function} durchgeführt und es folgt ein Versuch, den Code zu lesen. Das jeweilige Resultat hieraus wird schließlich in einer \textit{CSV-Datei} dokumentiert.
 	
 		\subsection{Wahl der Programmiersprache}
 		\label{sub:prog-lang}
 			Auf dem Gebiet der Bildverarbeitung haben sich im Allgemeinen zwei Programmiersprachen bewährt - \textit{Python} und \textit{C++} - nicht zuletzt wegen der in der Praxis oft verwendeten Open-Source-Bibliothek \textit{OpenCV}, die für diese beiden Sprachen eine Anwendungsschnittstelle bereitstellt (siehe Online-Dokumentation). Für diese Arbeit ist die Wahl auf die Sprache Python gefallen, da sie gegenüber C++ einige Vorteile mit sich bringt \cite[S. 21f]{python-book}:\\
-			Es bietet erhöhte Lesbarkeit sowie Benutzbarkeit aufgrund der Loslösung von der darunterliegenden physischen Schicht. Oft beträgt der Umfang eines Python-Skripts lediglich bis zu einem Drittel der Größe eines äquivalenten C++-Programms. Somit lassen sich mit Python auch komplexere Applikationen in einem kürzeren Zeitrahmen erstellen als mit C++.
+			Es bietet erhöhte Lesbarkeit sowie Benutzbarkeit aufgrund der Loslösung von der darunterliegenden physischen Schicht. Oft beträgt der Umfang eines Python-Skripts lediglich bis zu einem Drittel der Größe eines äquivalenten C++-Programms. Somit lassen sich mit Python auch komplexere Applikationen in einem kürzeren Zeitrahmen erstellen als mit C++. 
 
 		\subsection{Benutzte Module}
 		\label{sub:used-modules}
+			Nachstehend ist eine Auflistung jener hier verwendeten Python-Module, die essenziell für die Anfertigung dieser Arbeit waren, zum Zwecke der Nachvollziehbarkeit zu finden:\\
+			Für diverse Plots, wie sie in Abschnitt \ref{sec:results} zu finden sind, wurde das \textit{mathplotlib}-Modul in der Version $3.1.0$ eingesetzt. Für die dieser Arbeit zugrundeliegende Aufgabe war unter anderem das \textit{numpy}-Package, das hier unter der Version $1.16.4$ Anwendung findet, unabdingbar. Es bietet eine umfangreiche array-ähnliche Datenstruktur an, womit sich vor allem Matrix-Operationen mit geringem Aufwand realisieren lassen. Zudem 
 		
 	\section{Ergebnisse}
 	\label{sec:results}
