@@ -1,28 +1,34 @@
 \chapter{Die Problemstellung}
-\label{sec:prob}
+\label{chap:prob}
 	
 	Dieses Kapitel soll eine grobe Einführung in die Thematiken Bildverarbeitung und \gls{ocr} bieten und ferner die Motivation für diese Arbeit im Zusammenhang mit der Segmentierung von Bildern aufzeigen.
 	\section{Grundlegendes über Bildverarbeitung}
 	\label{sec:bild-basics}
 	
-		Zunächst steht die Frage nach einer (allgemein gültigen) Definition des Begriffes Bildverarbeitung im Raum. Hierzu gehen die Meinungen unter den Fachleuten auseinander. Präzise ausgedrückt, liegt die Meinungsverschiedenheit in der Frage nach der Grenze zwischen der Bildverarbeitung und damit verwandten Bereichen, z.B. dem maschinellen Sehen \cite[S. 2]{gonzalez-woods}. Zum Zwecke der Veranschaulichung soll die in \cite[S. 2]{gonzalez-woods} gegebene Definition ausreichen. Danach soll zu Beginn eine Unterscheidung von rechnergestützten Prozessen wie folgt vorgenommen werden:
-		\begin{description}
-			\item[Low-Level] Darunter fallen einfache Operationen direkt am Bild, wie zum Beispiel Rauschreduktion oder die Erhöhung des Kontrastes, oder aber auch simple arithmetische Operationen. Input sowie Output sind jeweils durch ein Bild gegeben.
-			\item[Mid-Level] Diese Kategorie von Prozessen zeichnet sich dadurch aus, dass aus einem Bild bestimmte Eigenschaften/Bereiche extrahiert werden, um daraus eine Information zu gewinnen. Während die Eingabe aus einem ganzen Bild besteht, beläuft sich die Ausgabe lediglich auf einen Teil davon bzw. ein bestimmtes Attribut des Bildes. Exemplarisch hierfür kann die Segmentierung angeführt werden, die in dieser Arbeit mit Hilfe der in Abschnitt \ref{sec:de} vorgestellten Methode realisiert werden soll. Bei der Segmentierung wird das Bild in Sub-Bilder eingeteilt, bis die für die jeweilige Anwendung interessante Region klar abgegrenzt im Bild erscheint.
-			\item[High-Level] Hier werden die aus den Mid-Level Prozessen erhaltenen Informationen verwendet, um bestimmte Aktionen auszulösen (z.B. im Bezug auf maschinelles Sehen).
-		\end{description}
-		Auf dieser Grundlage lassen sich nun die beiden erstgenannten Sorten von Prozessen zusammenfassen unter dem Terminus Bildverarbeitung. \\
-		In Anlehnung hieran kann ein Bild aus mathematischer Sicht als eine Funktion $f(x, y)$ von zwei Variablen begriffen werden, die an der Stelle $(x, y)$ ein Ergebnis zurückliefert, das als \textit{Intensität} interpretiert wird. Diese kann, je nach Farbsystem, entweder ein Skalar (schwarz-weiß) oder ein Tupel (\textbf{R}ed-\textbf{G}reen-\textbf{B}lue: 3-Tupel \cite{rgb-info}) sein \cite[S. 50]{gonzalez-woods}. \\
-		Um der Vollständigkeit genüge zu tun, wird in Abbildung \ref{fig:indust-imgproc} der hardwaretechnische Aufbau eines Bildverarbeitungssystems dargestellt:
-		\begin{figure}[H]
-			\includegraphics[width=\linewidth]{Industrielles-Bildverarbeitungssystem}
-			\caption{typischer Aufbau eines Bildverarbeitungssystems (nachgezeichnet aus \cite[S. 7]{indust-imgproc})}
-			\label{fig:indust-imgproc}
-		\end{figure}
-		\color{red} [Bild beschreiben] \color{black}
+		\subsection{Definition}
+		\label{sub:def-img-proc}
+			Zunächst steht die Frage nach einer (allgemein gültigen) Definition des Begriffes Bildverarbeitung im Raum. Hierzu gehen die Meinungen unter den Fachleuten auseinander. Präzise ausgedrückt, liegt die Meinungsverschiedenheit in der Frage nach der Grenze zwischen der Bildverarbeitung und damit verwandten Bereichen, z.B. dem maschinellen Sehen \cite[S. 2]{gonzalez-woods}. Zum Zwecke der Veranschaulichung soll die in \cite[S. 2]{gonzalez-woods} gegebene Definition ausreichen. Danach soll zu Beginn eine Unterscheidung von rechnergestützten Prozessen wie folgt vorgenommen werden:
+			\begin{description}
+				\item[Low-Level] Darunter fallen einfache Operationen direkt am Bild, wie zum Beispiel Rauschreduktion oder die Erhöhung des Kontrastes, oder aber auch simple arithmetische Operationen. Input sowie Output sind jeweils durch ein Bild gegeben.
+				\item[Mid-Level] Diese Kategorie von Prozessen zeichnet sich dadurch aus, dass aus einem Bild bestimmte Eigenschaften/Bereiche extrahiert werden, um daraus eine Information zu gewinnen. Während die Eingabe aus einem ganzen Bild besteht, beläuft sich die Ausgabe lediglich auf einen Teil davon bzw. ein bestimmtes Attribut des Bildes. Exemplarisch hierfür kann die Segmentierung angeführt werden, die in dieser Arbeit mit Hilfe der in Abschnitt \ref{sec:de} vorgestellten Methode realisiert werden soll. Bei der Segmentierung wird das Bild in Sub-Bilder eingeteilt, bis die für die jeweilige Anwendung interessante Region klar abgegrenzt im Bild erscheint.
+				\item[High-Level] Hier werden die aus den Mid-Level Prozessen erhaltenen Informationen verwendet, um bestimmte Aktionen auszulösen (z.B. im Bezug auf maschinelles Sehen).
+			\end{description}
+			Auf dieser Grundlage lassen sich nun die beiden erstgenannten Sorten von Prozessen zusammenfassen unter dem Terminus Bildverarbeitung. \\
+			In Anlehnung hieran kann ein Bild aus mathematischer Sicht als eine Funktion $f(x, y)$ von zwei Variablen begriffen werden, die an der Stelle $(x, y)$ ein Ergebnis zurückliefert, das als \textit{Intensität} interpretiert wird. Diese kann, je nach Farbsystem, entweder ein Skalar (schwarz-weiß) oder ein Tupel (\textbf{R}ed-\textbf{G}reen-\textbf{B}lue: 3-Tupel \cite{rgb-info}) sein \cite[S. 50]{gonzalez-woods}. \\
+			
+		\subsection{Technischer Aufbau eines Bildverarbeitungssystems}
+		\label{sub:tech-struc}
+			In Abbildung \ref{fig:indust-imgproc} wird der Aufbau eines typischen Bildverarbeitungssystems dargestellt:
+			\begin{figure}[H]
+				\includegraphics[width=\linewidth]{Industrielles-Bildverarbeitungssystem}
+				\caption{typischer Aufbau eines Bildverarbeitungssystems (nachgezeichnet aus \cite[S. 7]{indust-imgproc})}
+				\label{fig:indust-imgproc}
+			\end{figure}
+			Die Kameras (oder auch Laserscanner etc.) nehmen Bilder vom Bauteil auf und senden es an den Industrie-Rechner. Dieser verarbeitet dann die Information auf den Bildern - entweder automatisch oder per Steuersignal über die SPS - und schickt die gewonnenen Informationen über Ethernet oder eine serielle Kommunikationsschnittstelle zur weiteren Verarbeitung. Alternativ kann das Ergebnis in eine Datei oder Datenbank abgelegt werden. Sollten zeitintensive Berechnungen ausgeführt werden müssen, so steht in manchen Fällen ein zusätzlicher Rechner zur Verfügung, an den ein Teil der Kalkulationen ausgelagert werden kann.
 		\vfill
 		\glsreset{ocr}
 	\section{\gls{ocr} und Segmentierung}
+	\label{sec:ocr-seg}
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=\linewidth]{Ablauf-OCR_Cheriet-et-al.pdf}
@@ -53,12 +59,10 @@
 			\label{fig:seg-example-bad}
 		\end{figure}
 		Wie auf Abbildung \ref{fig:seg-example-bad}b zu erkennen ist, werden zu viele Pixel in der Umgebung des ersten und letzten Zeichens schwarz gefärbt, was die Konturen dieser beinahe verschwinden lässt. Zwar kann sich mit dem menschlichen Auge der Text noch erkannt werden, aber für eine Maschine wird es aus diesem Bild unmöglich, den darauf befindlichen Text zu lesen.\\
-		Aus der bereits langjährigen Geschichte der \gls{ocr} können inzwischen zahlreiche Arten gefunden werden, um eine Segmentierung zu realisieren. Diese sind in drei Gruppen unterteilbar \cite[Kapitel 10]{gonzalez-woods}: \textit{Thresholding}, \textit{Edge-Based-Segmentation} und \textit{Region-Based-Segmentation}. Sowohl aus erstgenannter als auch aus letztgenannter Gruppe von Segmentierungsmethoden wird jeweils ein Modellansatz in den Paragraphen \ref{sec:meth1} und \ref{sec:meth2} eingehend vorgestellt sowie im weiteren Verlauf dieser Arbeit zur Generierung der Ergebnisse in Kapitel \ref{sec:results} herangezogen. \\
-		
-		Um der Vollständigkeit genüge zu tun, sei an dieser Stelle die Segmentierungsmethode nach Otsu erwähnt, die in der heutigen industriellen Bildverarbeitung noch Anwendung findet. Hierbei wird das Thresholding-Problem aus der statistischen Sicht betrachtet, mit dem Ziel, den durchschnittlichen Fehler durch das Zuteilen eines Pixels zu zwei oder mehreren Klassen zu minimieren. \color{red} [Fortsetzung folgt] \color{black}
+		Aus der bereits langjährigen Geschichte der \gls{ocr} können inzwischen zahlreiche Arten gefunden werden, um eine Segmentierung zu realisieren. Diese sind in drei Gruppen unterteilbar \cite[Kapitel 10]{gonzalez-woods}: \textit{Thresholding}, \textit{Edge-Based-Segmentation} und \textit{Region-Based-Segmentation}. Sowohl aus erstgenannter als auch aus letztgenannter Gruppe von Segmentierungsmethoden wird jeweils ein Modellansatz in den Paragraphen \ref{sub:meth1} und \ref{sub:meth2} eingehend vorgestellt sowie im weiteren Verlauf dieser Arbeit zur Generierung der Ergebnisse in Kapitel \ref{sec:results} herangezogen. \\
 
 		\subsection{Modell 1: Gaußsche Annäherung an das Histogramm}
-		\label{sec:meth1}
+		\label{sub:meth1}
 			
 			Dieses Vorgehen aus der Gruppe der \textit{Thresholding}-Methoden basiert auf der Arbeit von Erik Cuevas und seinen Kollegen \cite{cuevas-meth1} und zielt darauf ab, das Histogramm eines Bildes mittels einer Summe von Gaußschen Wahrscheinlichkeitsfunktionen zu approximieren und den Fehler zwischen diesen beiden Funktionen zu minimieren.
 			
@@ -84,7 +88,7 @@
 			\begin{flalign*}
 				E_{\sigma_{l}} &= \frac{\partial E}{\partial \sigma_{l}}, & E_{\mu_{l}} &= \frac{\partial E}{\partial \mu_{l}}, & E_{P_{l}} &= \frac{\partial E}{\partial P_{l}}, & l &= 1, ..., K
 			\end{flalign*}
-			Nach den in \cite[S. 26]{papula-alg-eq} aufgestellten Kriterien für die Linearität eines Gleichungssystems ist obiges ein \textit{nichtlineares} Gleichungssystem und somit analytisch bestenfalls mit erheblichem Aufwand lösbar \color{red}[muss noch belegt werden]\color{black}. In solchen Fällen wird dann ein numerisches Verfahren zur Approximation einer Lösung in annehmbarer Zeit herangezogen, beispielsweise jenes, das in Abschnitt \ref{sec:de} behandelt wird. 
+			Nach den in \cite[S. 26]{papula-alg-eq} aufgestellten Kriterien für die Linearität eines Gleichungssystems ist obiges ein \textit{nichtlineares} Gleichungssystem. Nach der Behauptung in \cite{cuevas-meth1} ist aufgrund der transzendenten Natur der obigen Gleichungen keine analytische Lösung vorhanden. In solchen Fällen wird dann ein numerisches Verfahren zur Approximation einer Lösung in annehmbarer Zeit herangezogen, beispielsweise jenes, das in Abschnitt \ref{sec:de} behandelt wird. 
 			
 			Im Folgenden soll zur weiteren Erläuterung des Modells davon ausgegangen werden, dass die Kenngrößen $\sigma_{i}$, $\mu_{i}$ und $P_{i}$ im Sinne von Gleichung \ref{eq:mean-square-error} bereits ermittelt wurden. \\
 			Der letzte Schritt, um hieraus schließlich die Threshold-Werte $T_{1}, ... , T_{K-1}$ zu erhalten, führt über die Lösung der folgenden quadratischen Gleichung:
@@ -114,14 +118,14 @@
 			Dabei sind $a_{1}, ..., a_{K}$ voneinander unterschiedliche Graustufenwerte.
 	
 		\subsection{Modell 2: K-Means}
-		\label{sec:meth2}
+		\label{sub:meth2}
 		
 			Der K-Means-Algorithmus wurde 1967 von James B. MacQueen \cite{macqueen-kmeans} vorgestellt und wird heute noch häufig zur Gruppierung großer Datenmengen eingesetzt - so in \cite{kmeans-info} zu lesen.\\
 			Die grundlegende Idee hinter K-Means besteht in der Generierung von Mittelpunkten als Repräsentanten für verschiedene Bereiche in einem Datensatz. Formal ausgedrückt bedeutet dies \cite{mozdren-meth2}: \\
 			Gegeben sei eine Folge von Messpunkten $x_{j} \in \mathbb{R}^{d},$ $j \in [1,n]$, wobei $n$ gleich der Anzahl der Messpunkte ist und $d$ für die Dimension dieser steht. Dann existiert eine Segmentierung $S = \{S_{1}, ..., S_{K}\}$ mit den für die einzelnen Segmenten $S_{i}$ stellvertretenden Mittelpunkten $\{\mu_{i}, ..., \mu_{K}\}$, die der Lösung des anschließenden Problems \ref{eq:kmeans-min} genügt:
 			\begin{flalign}
 				\centering
-				\underset{S}{arg \ min} \sum_{i=1}^{K} \sum_{x_{j} \in S_{i}}\left|\left|x_{j} - \mu_{i}\right|\right|^{2}, \quad \left|\left|x_{j} - \mu_{i}\right|\right|^{2} = \textrm{euklid. Distanz zwischen } x_{j} \textrm{ und } \mu_{i}
+				\underset{S}{\arg \ \min} \sum_{i=1}^{K} \sum_{x_{j} \in S_{i}}\left|\left|x_{j} - \mu_{i}\right|\right|^{2}, \quad \left|\left|x_{j} - \mu_{i}\right|\right|^{2} = \textrm{euklid. Distanz zwischen } x_{j} \textrm{ und } \mu_{i}
 				\label{eq:kmeans-min}
 			\end{flalign}
 			Dabei erfolgt die Eruierung der Mittelpunkte in zwei Schritten:\\
@@ -130,4 +134,4 @@
 				S_{i}^{(t)} &= \left\{ x_{a} : \left|\left|x_{a} - \mu_{i}^{(t)}\right|\right|^{2} \leq \left|\left|x_{a} - \mu_{j^{(t)}}\right|\right|^{2} \forall j \in \{1, ..., K\} \textbackslash \{i\}  \right\} \label{eq:kmeans-assign}\\
 				\mu_{i}^{(t+1)} &= \frac{1}{\left| S_{i}^{(t)} \right|} \sum_{x_{j} \in S_{i}^{(t)}} x_{j}, \label{eq:kmeans-update}
 			\end{flalign}
-			mit $t$ als aktueller Iterationsindex. Diese Abläufe werden wiederholt, bis die Mittelpunkte $\mu_{i}$ sich nicht weiter wesentlich ändern.
+			mit $t$ als aktueller Iterationsindex. Diese Abläufe werden wiederholt, bis die Mittelpunkte $\mu_{i}$ sich nicht weiter wesentlich ändern.\\

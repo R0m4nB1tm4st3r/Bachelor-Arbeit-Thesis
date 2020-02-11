@@ -25,7 +25,7 @@
 		\subsection{Parameter-Wahl}
 		\label{sub:de-params}
 			Die einstellbaren Parameter für den implementierten Algorithmus der Differenziellen Evolution und die nachfolgende Segmentierung setzen sich wie folgt zusammen:\\
-			Die für den Algorithmus relevanten Parameter belaufen sich auf den Mutationsfaktor $F$, den Crossover-Faktor $C_{r}$ und die maximale Anzahl an Iterationen $G$. Im vorliegenden Test-Szenario wurden $F = 0.5$ und $C_{r} = 0.9$ gewählt. Den Parameter $G$ betreffend wurde eine Unterscheidung getroffen zwischen den Segmentierungsmodellen in den Abschnitten \ref{sec:meth1} und \ref{sec:meth2} respektive. Dementsprechend wurden mit dem Modell der Gaußschen Approximation vier Durchläufe mit $G \in \{100, 200, 500, 1000\}$ ausgeführt, wohingegen anhand des K-Means-Clustering-Modells wegen des deutlich erhöhten Rechenaufwandes im Vergleich mit der Gaußschen Approximation lediglich vier Ausführungssequenzen mit $G \in \{5, 10, 20, 50\}$ absolviert wurden.\\
+			Die für den Algorithmus relevanten Parameter belaufen sich auf den Mutationsfaktor $F$, den Crossover-Faktor $C_{r}$ und die maximale Anzahl an Iterationen $G$. Im vorliegenden Test-Szenario wurden $F = 0.5$ und $C_{r} = 0.9$ gewählt. Den Parameter $G$ betreffend wurde eine Unterscheidung getroffen zwischen den Segmentierungsmodellen in den Abschnitten \ref{sec:meth1} und \ref{sec:meth2} respektive. Dementsprechend wurden mit dem Modell der Gaußschen Approximation vier Durchläufe mit $G \in \{100, 200, 500, 1000\}$ ausgeführt, wohingegen anhand des K-Means-Clustering-Modells wegen des deutlich erhöhten Rechenaufwandes im Vergleich mit der Gaußschen Approximation lediglich drei Ausführungssequenzen mit $G \in \{5, 10, 20\}$ absolviert wurden.\\
 			In dieser Konstellation werden die Tests für eine Segmentierung in $K$ Klassen mit $K \in \{2,3,4,5\}$ durchgeführt.
 
 	\section{Implementierung der Test-Applikation}
@@ -50,8 +50,8 @@
 		\subsection{Benutzte Module}
 		\label{sub:used-modules}
 			Nachstehend ist eine Auflistung jener hier verwendeten Python-Module, die essenziell für die Anfertigung dieser Arbeit waren, zum Zwecke der Nachvollziehbarkeit zu finden:\\
-			Für diverse Plots, wie sie in Abschnitt \ref{sec:results} zu finden sind, wurde das \textit{mathplotlib}-Modul in der Version $3.1.0$ eingesetzt. Für die dieser Arbeit zugrundeliegende Aufgabe war unter anderem das \textit{numpy}-Package, das hier unter der Version $1.16.4$ Anwendung findet, unabdingbar. Es bietet eine umfangreiche array-ähnliche Datenstruktur an, womit sich vor allem Matrix-Operationen mit geringem Aufwand realisieren lassen. Zudem 
-		
+			Für diverse Plots, wie sie in Abschnitt \ref{sec:results} zu finden sind, wurde das \textit{mathplotlib}-Modul \cite[Version 3.1.0]{hunter2007matplotlib} eingesetzt. Für die dieser Arbeit zugrundeliegende Aufgabe war unter anderem das \textit{numpy}-Package \cite[Version 1.16.4]{oliphant2006guide} unabdingbar. Es bietet eine umfangreiche array-ähnliche Datenstruktur, womit sich vor allem Matrix-Operationen mit geringem Aufwand realisieren lassen. So können auch Bilder durch ein zweidimensionales \textit{numpy}-Array dargestellt werden. Zudem sind verschiedene Module mit dem \textit{numpy}-Array kompatibel bzw. sind in der Lage, dieses zu verarbeiten. Hierunter fallen die in der Testapplikation ebenfalls verwendeten Module \textit{scipy} für wissenschaftliche und statistische Kalkulationen \cite[Version 1.2.1]{scipy} sowie das in der Bildverarbeitung präsente \textit{OpenCV} \cite{2014opencv}, das zahlreiche Bildoperationen wie Filter etc. erlaubt. Ebenso sollte \textit{tesserocr} nicht unerwähnt bleiben. Hierbei handelt es sich um einen Python-Wrapper für die Tesseract-\gls{ocr}-Software \cite{tesseract}.
+			
 	\section{Ergebnisse}
 	\label{sec:results}
 	
@@ -66,3 +66,6 @@
 		
 		\subsection{Beurteilung des Ergebnisses bei steigender Iterationszahl}
 		\label{sub:judging-higher-iteration}
+		
+		\subsection{Einfluss der Klassenanzahl auf das Ergebnis}
+		\label{sub:influence-of-classes}

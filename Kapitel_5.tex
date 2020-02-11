@@ -1,2 +1,10 @@
 \chapter{Fazit und Ausblick}
 \label{sec:summary}
+
+	Zusammenfassend kann angemerkt werden, dass die Methode \gls{de} zwar durchaus das Potenzial einer erfolgreichen Anwendung im Bezug auf die Segmentierung von Bildern besitzt, jedoch zeigten die Ergebnisse aus \ref{sec:results} zum einen, dass bei gelaserten Bauteilen erhebliche Schwierigkeiten bestehen, den Text auf dem segmentierten Bild zu erkennen - nicht zuletzt wegen der verhältnismäßig geringen Linienstärke der Zeichen - und zum anderen einen enormen Verbesserungsbedarf selbst bei den gestempelten Bildern. An diesem Punkt seien einige Anregungen mit Hinblick auf zukünftige Versuche mit \gls{de} geboten:
+	
+	\begin{description}
+		\item[Bildvorverarbeitung:] Eine mögliche Stellschraube, an der gedreht werden kann, sind die verfügbaren Bilder selbst. Diesbezüglich existiert ein vielversprechender Ansatz \cite{chinese-method}, bei dem zunächst von einem einzelnen Bauteil vier Aufnahmen erstellt werden, davon jedes Mal unter einer anderen Beleuchtungssituation. Im Anschluss hieran werden von den zwei Bildern mit der jeweils entgegengesetzten Beleuchtung Differenzen gebildet und diese wiederum kombiniert, um ein fusioniertes Bild zu erhalten, das im Optimalfall keine Störungen mehr aufweist.
+		\item[\gls{de}-Parameter:] Innerhalb dieses Kontextes wurde bisher lediglich ein spezifischer \gls{de}-Algorithmus getestet: \gls{de}1/best/exp. Künftige Untersuchungen könnten sich mit den Unterschieden zwischen den einzelnen Varianten auseinandersetzen. Außerdem lassen sich die Parameter $C_{r}$ und $F$ justieren, um das Konvergenzverhalten bei der Optimierung zu beeinflussen.
+		\item[Tesseract beeinflussen:] Eine weitere aussichtsreiche Anregung wäre eine Filterung der Blobs, die von Tesseract um die vermeintlich erkannten Zeichen anlegt, auf etwa die Größe eines tatsächlich vorhandenen Zeichens. Dadurch würden zumindest die Störeffekte am Rand des Bildes kaum mehr eine Rolle spielen.
+	\end{description}
